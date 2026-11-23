@@ -17,16 +17,16 @@
     
     <!-- Top Navbar -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819; -fx-background-radius: 0 0 24 24; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-border-radius: 0 0 24 24;">
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
             <padding>
-                <Insets bottom="16.0" left="36.0" right="36.0" top="16.0" />
+                <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
             </padding>
-            <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/SinggahLogo.png" />
                 </image>
             </ImageView>
-            <Label style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold;" text="Singgah" />
+            <Label style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold;-fx-font-family: Georgia; " text="Singgah" />
         </HBox>
     </top>
 

@@ -20,12 +20,13 @@
     <VBox fillWidth="true" style="-fx-background-color: #1B431E;">
 
 <!-- navbar -->
-        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819; -fx-border-color: rgba(255,255,255,0.25); -fx-border-width: 0 0 1 0;">
+        <!-- navbar -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
             <padding>
                 <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
             </padding>
 
-            <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/SinggahLogo.png" />
                 </image>
