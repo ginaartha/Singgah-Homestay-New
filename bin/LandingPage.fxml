@@ -8,6 +8,8 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -17,11 +19,17 @@
 
     <VBox fillWidth="true" style="-fx-background-color: #1B431E;">
 
-        <!-- navbar -->
-        <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: #163819; -fx-border-color: rgba(255,255,255,0.25); -fx-border-width: 0 0 1 0;">
+<!-- navbar -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819; -fx-border-color: rgba(255,255,255,0.25); -fx-border-width: 0 0 1 0;">
             <padding>
                 <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
             </padding>
+
+            <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/SinggahLogo.png" />
+                </image>
+            </ImageView>
 
             <Label style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold;" text="Singgah" />
 
@@ -38,8 +46,14 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <Button fx:id="registerButton" onAction="#handleRegister" style="-fx-background-color: white; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 7 20 7 20;" text="Daftar" />
-            <Button fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 6 20 6 20;" text="Masuk" />
+            <!-- Guest Buttons (Shown when logged out) -->
+            <HBox fx:id="authButtonsBox" alignment="CENTER" spacing="10.0">
+                <Button fx:id="registerButton" onAction="#handleRegister" style="-fx-background-color: white; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 7 20 7 20; -fx-cursor: hand;" text="Daftar" />
+                <Button fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 6 20 6 20; -fx-cursor: hand;" text="Masuk" />
+            </HBox>
+
+            <!-- Profile Button (Shown when logged in, styled like Screenshot 3) -->
+            <Button fx:id="profileButton" managed="false" onAction="#handleProfileClick" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-text-fill: #1B431E; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 0;" text="👤" visible="false" />
         </HBox>
 
         <!-- Hero Section -->
@@ -106,8 +120,12 @@
 
             <!-- Card 1 -->
             <VBox prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0.1, 0, 3);">
-                <StackPane minHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 13px;" text="Villa Photo" />
+                <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
+                    <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@images/DhyanaVilla.png" />
+                        </image>
+                    </ImageView>
                 </StackPane>
 
                 <VBox spacing="6.0">
@@ -131,8 +149,12 @@
 
             <!-- Card 2 -->
             <VBox prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0.1, 0, 3);">
-                <StackPane minHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 13px;" text="Villa Photo" />
+                <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
+                    <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@images/DhyanaVilla.png" />
+                        </image>
+                    </ImageView>
                 </StackPane>
 
                 <VBox spacing="6.0">
@@ -156,8 +178,12 @@
 
             <!-- Card 3 -->
             <VBox prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0.1, 0, 3);">
-                <StackPane minHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 13px;" text="Villa Photo" />
+                <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
+                    <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@images/DhyanaVilla.png" />
+                        </image>
+                    </ImageView>
                 </StackPane>
 
                 <VBox spacing="6.0">
