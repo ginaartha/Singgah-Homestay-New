@@ -186,11 +186,25 @@ public class HasilPencarianController {
 
     @FXML
     private void handleMyReservations() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Reservasi Saya");
-        alert.setHeaderText(null);
-        alert.setContentText("Fitur halaman Reservasi Saya belum dihubungkan.");
-        alert.showAndWait();
+        if (!UserSession.isLoggedIn()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Masuk Diperlukan");
+            alert.setHeaderText(null);
+            alert.setContentText("Silakan masuk ke akun Anda terlebih dahulu untuk melihat Reservasi Saya.");
+            alert.showAndWait();
+            try {
+                App.setRoot("SignInPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        try {
+            App.setRoot("ReservasiSaya");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

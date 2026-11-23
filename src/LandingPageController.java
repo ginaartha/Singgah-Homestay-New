@@ -101,11 +101,6 @@ public class LandingPageController {
     }
 
     @FXML
-    private void handleHome() {
-        showInfo("Beranda", "Kamu sedang berada di halaman Beranda.");
-    }
-
-    @FXML
     private void handleSearchRoom() {
         UserSession.setSearchFilter(null, null, null);
         try {
@@ -117,7 +112,26 @@ public class LandingPageController {
 
     @FXML
     private void handleMyReservations() {
-        showInfo("Reservasi Saya", "Fitur halaman Reservasi Saya belum dihubungkan.");
+        if (!UserSession.isLoggedIn()) {
+            showInfo("Masuk Diperlukan", "Silakan masuk ke akun Anda terlebih dahulu untuk melihat Reservasi Saya.");
+            try {
+                App.setRoot("SignInPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        try {
+            App.setRoot("ReservasiSaya");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleHome() {
+        showInfo("Beranda", "Kamu sedang berada di halaman Beranda.");
     }
 
     @FXML
