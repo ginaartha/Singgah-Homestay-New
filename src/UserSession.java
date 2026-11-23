@@ -12,6 +12,13 @@ public class UserSession {
     private static String searchDate;
     private static String searchGuests;
 
+    // Data villa yang dipilih untuk DetailVilla
+    private static String selectedVillaName;
+    private static String selectedVillaAddress;
+    private static String selectedVillaFacilities;
+    private static int selectedVillaPrice;
+    private static String selectedVillaImage;
+
     // Akun Admin bawaan
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_EMAIL = "admin@singgah.com";
@@ -77,6 +84,34 @@ public class UserSession {
 
     public static String getSearchGuests() {
         return searchGuests;
+    }
+
+    public static void setSelectedVilla(String name, String address, String facilities, int price, String imagePath) {
+        UserSession.selectedVillaName = name;
+        UserSession.selectedVillaAddress = address;
+        UserSession.selectedVillaFacilities = facilities;
+        UserSession.selectedVillaPrice = price;
+        UserSession.selectedVillaImage = imagePath;
+    }
+
+    public static String getSelectedVillaName() {
+        return selectedVillaName;
+    }
+
+    public static String getSelectedVillaAddress() {
+        return selectedVillaAddress;
+    }
+
+    public static String getSelectedVillaFacilities() {
+        return selectedVillaFacilities;
+    }
+
+    public static int getSelectedVillaPrice() {
+        return selectedVillaPrice;
+    }
+
+    public static String getSelectedVillaImage() {
+        return selectedVillaImage;
     }
 
     public static boolean isLoggedIn() {

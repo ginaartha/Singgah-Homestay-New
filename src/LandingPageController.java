@@ -136,17 +136,46 @@ public class LandingPageController {
 
     @FXML
     private void handleBookingVilla1() {
-        showInfo("Booking", "Booking dipilih untuk Dhyana Villa (Card 1).");
+        UserSession.setSelectedVilla(
+            "Dhyana Villa",
+            "Jl. Menuju Hatimu, No. 01, Kec. Klungkung, Kab. Klungkung, Bali",
+            "2 tamu • Kamar mandi dalam • Wi-Fi",
+            250000,
+            "/images/DhyanaVilla.png"
+        );
+        openDetailVilla();
     }
 
     @FXML
     private void handleBookingVilla2() {
-        showInfo("Booking", "Booking dipilih untuk Inten Villa (Card 2).");
+        UserSession.setSelectedVilla(
+            "Inten Villa",
+            "Jl. Tanah Lot No. 12, Kec. Kediri, Kab. Tabanan, Bali",
+            "3 tamu • Kamar mandi dalam • Wi-Fi",
+            250000,
+            "/images/DhyanaVilla.png"
+        );
+        openDetailVilla();
     }
 
     @FXML
     private void handleBookingVilla3() {
-        showInfo("Booking", "Booking dipilih untuk Gina Villa (Card 3).");
+        UserSession.setSelectedVilla(
+            "Gina Villa",
+            "Jl. Raya Ubud No. 88, Kec. Ubud, Kab. Gianyar, Bali",
+            "4 tamu • Kamar mandi dalam • Wi-Fi",
+            250000,
+            "/images/DhyanaVilla.png"
+        );
+        openDetailVilla();
+    }
+
+    private void openDetailVilla() {
+        try {
+            App.setRoot("DetailVilla");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showInfo(String title, String message) {

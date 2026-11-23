@@ -27,17 +27,21 @@ public class HasilPencarianController {
         String name;
         String area;
         String regency;
+        String fullAddress;
         int maxGuests;
         String facilities;
+        int pricePerNight;
         String priceText;
         String imagePath;
 
-        VillaItem(String name, String area, String regency, int maxGuests, String facilities, String priceText, String imagePath) {
+        VillaItem(String name, String area, String regency, String fullAddress, int maxGuests, String facilities, int pricePerNight, String priceText, String imagePath) {
             this.name = name;
             this.area = area;
             this.regency = regency;
+            this.fullAddress = fullAddress;
             this.maxGuests = maxGuests;
             this.facilities = facilities;
+            this.pricePerNight = pricePerNight;
             this.priceText = priceText;
             this.imagePath = imagePath;
         }
@@ -79,9 +83,9 @@ public class HasilPencarianController {
         resultsContainer.getChildren().clear();
 
         List<VillaItem> allVillas = List.of(
-            new VillaItem("Dhyana Villa", "Klungkung, Bali", "Klungkung", 2, "2 tamu • Kamar mandi dalam • Wi-Fi", "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
-            new VillaItem("Inten Villa", "Tabanan, Bali", "Tabanan", 3, "3 tamu • Kamar mandi dalam • Wi-Fi", "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
-            new VillaItem("Gina Villa", "Gianyar, Bali", "Gianyar", 4, "4 tamu • Kamar mandi dalam • Wi-Fi", "Rp 250.000,00/malam", "/images/DhyanaVilla.png")
+            new VillaItem("Dhyana Villa", "Klungkung, Bali", "Klungkung", "Jl. Menuju Hatimu, No. 01, Kec. Klungkung, Kab. Klungkung, Bali", 2, "2 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
+            new VillaItem("Inten Villa", "Tabanan, Bali", "Tabanan", "Jl. Tanah Lot No. 12, Kec. Kediri, Kab. Tabanan, Bali", 3, "3 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
+            new VillaItem("Gina Villa", "Gianyar, Bali", "Gianyar", "Jl. Raya Ubud No. 88, Kec. Ubud, Kab. Gianyar, Bali", 4, "4 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png")
         );
 
         int requiredGuests = parseGuestCount(selectedGuests);
@@ -161,11 +165,12 @@ public class HasilPencarianController {
         Button bookingBtn = new Button("Booking");
         bookingBtn.setStyle("-fx-background-color: #245228; -fx-text-fill: white; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 6 16 6 16; -fx-cursor: hand;");
         bookingBtn.setOnAction(e -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Booking Villa");
-            alert.setHeaderText(null);
-            alert.setContentText("Booking dipilih untuk " + villa.name + " (" + villa.area + ").");
-            alert.showAndWait();
+            UserSession.setSelectedVilla(villa.name, villa.fullAddress, villa.facilities, villa.pricePerNight, villa.imagePath);
+            try {
+                App.setRoot("DetailVilla");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
         bottomRow.getChildren().addAll(priceLabel, spacer, bookingBtn);
