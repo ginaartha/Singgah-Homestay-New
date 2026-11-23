@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class SignInController {
 
@@ -36,6 +37,35 @@ public class SignInController {
             App.setRoot("SignUpPage");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleGoToHostSignIn() {
+        try {
+            App.setRoot("HostSignInPage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBackToLanding() {
+        try {
+            App.setRoot("LandingPage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleLogoClick(MouseEvent event) {
+        if (event.getClickCount() == 3) {
+            try {
+                App.setRoot("AdminSignInPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

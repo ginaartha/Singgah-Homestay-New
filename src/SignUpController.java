@@ -30,12 +30,9 @@ public class SignUpController {
             return;
         }
 
-        // Save user credentials in session
         UserSession.registerUser(username, fullName, email, password, phone);
-
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil", "Akun berhasil dibuat! Silakan masuk.");
 
-        // Navigate to Sign In page
         try {
             App.setRoot("SignInPage");
         } catch (IOException e) {
@@ -54,7 +51,20 @@ public class SignUpController {
 
     @FXML
     private void handleHostRegister() {
-        showAlert(Alert.AlertType.INFORMATION, "Daftar Host", "Fitur pendaftaran host akan segera hadir.");
+        try {
+            App.setRoot("HostSignUpPage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBackToLanding() {
+        try {
+            App.setRoot("LandingPage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
