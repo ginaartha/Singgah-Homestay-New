@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" fx:controller="TambahListingController" hbarPolicy="NEVER" prefHeight="760.0" prefWidth="1120.0" style="-fx-background-color: #2B502C; -fx-background: #2B502C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox fillWidth="true" style="-fx-background-color: #2B502C;">
+         
+         <!-- NAVBAR -->
+         <HBox alignment="CENTER_LEFT" prefHeight="76.0" style="-fx-background-color: #163819; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 8, 0, 0, 2);">
+            <padding>
+               <Insets bottom="14.0" left="48.0" right="48.0" top="14.0"/>
+            </padding>
+            <children>
+               <!-- Logo Singgah -->
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <children>
+                     <SVGPath content="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" fill="#D99B26" scaleX="1.35" scaleY="1.35"/>
+                     <Label text="Singgah" textFill="#D99B26">
+                        <font>
+                           <Font name="System Bold" size="26.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+
+               <Region HBox.hgrow="ALWAYS"/>
+
+               <!-- Navigasi Tengah -->
+               <HBox alignment="CENTER" spacing="4.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 24;">
+                  <padding>
+                     <Insets bottom="4.0" left="6.0" right="6.0" top="4.0"/>
+                  </padding>
+                  <children>
+                     <Button fx:id="btnBeranda" mnemonicParsing="false" onAction="#handleBeranda" style="-fx-background-color: transparent; -fx-text-fill: #1A1A1A; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 20; -fx-padding: 6 18 6 18;" text="Beranda">
+                        <cursor>
+                           <Cursor fx:constant="HAND"/>
+                        </cursor>
+                     </Button>
+                     <Button fx:id="btnListing" mnemonicParsing="false" onAction="#handleKembaliKeListing" style="-fx-background-color: #D9D9D9; -fx-text-fill: #1A1A1A; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 20; -fx-padding: 6 20 6 20;" text="Listing">
+                        <cursor>
+                           <Cursor fx:constant="HAND"/>
+                        </cursor>
+                     </Button>
+                  </children>
+               </HBox>
+
+               <Region HBox.hgrow="ALWAYS"/>
+
+               <!-- Ikon Profil -->
+               <StackPane onMouseClicked="#handleProfile" style="-fx-cursor: hand;">
+                  <children>
+                     <Circle fill="#FFFFFF" radius="18.0"/>
+                     <SVGPath content="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#163819" scaleX="0.9" scaleY="0.9"/>
+                  </children>
+               </StackPane>
+            </children>
+         </HBox>
+
+         <!-- CONTAINER KARTU PUTIH UTAMA -->
+         <VBox alignment="CENTER">
+            <padding>
+               <Insets bottom="48.0" left="110.0" right="110.0" top="36.0"/>
+            </padding>
+            <children>
+               <VBox maxWidth="880.0" spacing="22.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #163819; -fx-border-width: 2.5; -fx-border-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.28), 10, 0, 0, 4);">
+                  <padding>
+                     <Insets bottom="34.0" left="48.0" right="48.0" top="36.0"/>
+                  </padding>
+                  <children>
+                     
+                     <!-- BARIS UTAMA: KIRI (FOTO) & KANAN (FORM INPUT) -->
+                     <HBox alignment="TOP_LEFT" spacing="42.0">
+                        <children>
+                           
+                           <!-- KOLOM KIRI: PREVIEW FOTO & KOTAK TAMBAH FOTO KAMAR -->
+                           <VBox prefWidth="240.0" spacing="22.0">
+                              <children>
+                                 <!-- Preview Foto Utama -->
+                                 <StackPane prefHeight="250.0" prefWidth="240.0" style="-fx-background-color: #466647; -fx-background-radius: 14;">
+                                    <children>
+                                       <Label fx:id="lblPlaceholderFoto" text="Preview Foto Villa" textFill="#E0E6E0">
+                                          <font>
+                                             <Font size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <ImageView fitHeight="250.0" fitWidth="240.0" fx:id="imgPreviewVilla" pickOnBounds="true" preserveRatio="false"/>
+                                    </children>
+                                 </StackPane>
+
+                                 <!-- Kotak "+ Tambah Foto Kamar" -->
+                                 <VBox alignment="CENTER" onMouseClicked="#handleTambahFoto" prefHeight="230.0" prefWidth="240.0" spacing="12.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 14; -fx-border-color: #163819; -fx-border-width: 1.5; -fx-border-radius: 14; -fx-cursor: hand;">
+                                    <children>
+                                       <Label text="+" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="46.0"/>
+                                          </font>
+                                       </Label>
+                                       <Label text="Tambah Foto Kamar" textFill="#1A1A1A">
+                                          <font>
+                                             <Font size="16.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </VBox>
+
+                           <!-- KOLOM KANAN: FORM DATA PENGINAPAN -->
+                           <VBox HBox.hgrow="ALWAYS" spacing="14.0">
+                              <children>
+                                 
+                                 <!-- Nama Penginapan -->
+                                 <VBox spacing="6.0">
+                                    <children>
+                                       <Label text="Nama Penginapan" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <TextField fx:id="txtNamaPenginapan" promptText="Contoh: Dhyana Villa" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px;"/>
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Fasilitas (Dinamis dengan tombol +) -->
+                                 <VBox fx:id="boxFasilitasContainer" spacing="8.0">
+                                    <children>
+                                       <Label text="Fasilitas" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                          <children>
+                                             <TextField HBox.hgrow="ALWAYS" fx:id="txtFasilitas1" promptText="Contoh: Kamar mandi dalam" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px;"/>
+                                             <Button mnemonicParsing="false" onAction="#handleTambahBarisFasilitas" style="-fx-background-color: transparent; -fx-text-fill: #1A1A1A; -fx-font-weight: bold; -fx-font-size: 18px; -fx-padding: 0 6 0 6;" text="+">
+                                                <cursor>
+                                                   <Cursor fx:constant="HAND"/>
+                                                </cursor>
+                                             </Button>
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                          <children>
+                                             <TextField HBox.hgrow="ALWAYS" fx:id="txtFasilitas2" promptText="Contoh: Wi-fi" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px;"/>
+                                             <Region prefWidth="26.0"/>
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Alamat -->
+                                 <VBox spacing="6.0">
+                                    <children>
+                                       <Label text="Alamat" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <TextArea fx:id="txtAlamat" prefHeight="58.0" promptText="Contoh: Jl. Menuju Hatimu, No. 01, Kec. Tabanan, Kab. Tabanan, Bali" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 13px;" wrapText="true"/>
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Kapasitas Tamu (- / +) -->
+                                 <VBox spacing="6.0">
+                                    <children>
+                                       <Label text="Kapasitas Tamu" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <HBox alignment="CENTER_LEFT" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 4 12 4 12;">
+                                          <children>
+                                             <Label fx:id="lblKapasitas" text="1" textFill="#1A1A1A">
+                                                <font>
+                                                   <Font size="13.0"/>
+                                                </font>
+                                             </Label>
+                                             <Region HBox.hgrow="ALWAYS"/>
+                                             <Button mnemonicParsing="false" onAction="#handleKurangTamu" style="-fx-background-color: transparent; -fx-text-fill: #1A1A1A; -fx-font-weight: bold; -fx-font-size: 15px; -fx-padding: 2 8 2 8;" text="-">
+                                                <cursor>
+                                                   <Cursor fx:constant="HAND"/>
+                                                </cursor>
+                                             </Button>
+                                             <Button mnemonicParsing="false" onAction="#handleTambahTamu" style="-fx-background-color: transparent; -fx-text-fill: #1A1A1A; -fx-font-weight: bold; -fx-font-size: 15px; -fx-padding: 2 6 2 8;" text="+">
+                                                <cursor>
+                                                   <Cursor fx:constant="HAND"/>
+                                                </cursor>
+                                             </Button>
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Deskripsi -->
+                                 <VBox spacing="6.0">
+                                    <children>
+                                       <Label text="Deskripsi" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <TextArea fx:id="txtDeskripsi" prefHeight="74.0" promptText="Tuliskan deskripsi singkat mengenai penginapan..." style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 13px;" wrapText="true"/>
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Harga per Malam -->
+                                 <VBox spacing="6.0">
+                                    <children>
+                                       <Label text="Harga per Malam" textFill="#1A1A1A">
+                                          <font>
+                                             <Font name="System Bold" size="13.0"/>
+                                          </font>
+                                       </Label>
+                                       <TextField fx:id="txtHarga" promptText="Contoh: Rp 250.000,00" style="-fx-background-color: #FFFFFF; -fx-border-color: #2E5230; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px;"/>
+                                    </children>
+                                 </VBox>
+
+                              </children>
+                           </VBox>
+
+                        </children>
+                     </HBox>
+
+                     <!-- TOMBOL SELESAI DI POJOK KANAN BAWAH -->
+                     <HBox alignment="CENTER_RIGHT">
+                        <VBox.margin>
+                           <Insets top="8.0"/>
+                        </VBox.margin>
+                        <children>
+                           <Button fx:id="btnSelesai" mnemonicParsing="false" onAction="#handleSelesai" style="-fx-background-color: #E3A024; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 9 28 9 28; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.18), 5, 0, 0, 2);" text="Selesai">
+                              <cursor>
+                                 <Cursor fx:constant="HAND"/>
+                              </cursor>
+                           </Button>
+                        </children>
+                     </HBox>
+
+                  </children>
+               </VBox>
+            </children>
+         </VBox>
+
+      </VBox>
+   </content>
+</ScrollPane>
