@@ -7,18 +7,21 @@ public class UserSession {
     private static String role = "GUEST"; // "GUEST", "HOST", atau "ADMIN"
     private static boolean loggedIn = false;
 
-    // Akun Admin bawaan (pre-seeded, tanpa halaman Sign Up publik)
+    // Filter pencarian dari LandingPage ke HasilPencarian
+    private static String searchLocation;
+    private static String searchDate;
+    private static String searchGuests;
+
+    // Akun Admin bawaan
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_EMAIL = "admin@singgah.com";
     private static final String ADMIN_PASSWORD = "admin123";
     private static final String ADMIN_FULLNAME = "Super Admin Singgah";
 
-    // Daftar Tamu (Guest)
     public static void registerUser(String username, String fullName, String email, String password, String phone) {
         registerAccount(username, fullName, email, password, phone, "GUEST");
     }
 
-    // Daftar Guest atau Host
     public static void registerAccount(String username, String fullName, String email, String password, String phone, String role) {
         UserSession.username = username;
         UserSession.fullName = fullName;
@@ -28,12 +31,10 @@ public class UserSession {
         UserSession.role = role;
     }
 
-    // Login Tamu (Guest)
     public static boolean authenticate(String identifier, String inputPassword) {
         return authenticateWithRole(identifier, inputPassword, "GUEST");
     }
 
-    // Login berdasarkan Role ("GUEST", "HOST", atau "ADMIN")
     public static boolean authenticateWithRole(String identifier, String inputPassword, String requiredRole) {
         if ("ADMIN".equalsIgnoreCase(requiredRole)) {
             boolean adminIdMatch = identifier.equalsIgnoreCase(ADMIN_USERNAME) || identifier.equalsIgnoreCase(ADMIN_EMAIL);
@@ -58,6 +59,24 @@ public class UserSession {
             return true;
         }
         return false;
+    }
+
+    public static void setSearchFilter(String location, String date, String guests) {
+        UserSession.searchLocation = location;
+        UserSession.searchDate = date;
+        UserSession.searchGuests = guests;
+    }
+
+    public static String getSearchLocation() {
+        return searchLocation;
+    }
+
+    public static String getSearchDate() {
+        return searchDate;
+    }
+
+    public static String getSearchGuests() {
+        return searchGuests;
     }
 
     public static boolean isLoggedIn() {

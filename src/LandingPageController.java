@@ -95,12 +95,17 @@ public class LandingPageController {
         LocalDate date = datePicker.getValue();
         String guests = guestComboBox.getValue();
 
-        StringBuilder summary = new StringBuilder("Filter pencarian:\n");
-        summary.append("Lokasi: ").append(location != null ? location : "Belum dipilih").append("\n");
-        summary.append("Tanggal: ").append(date != null ? date.toString() : "Belum dipilih").append("\n");
-        summary.append("Jumlah tamu: ").append(guests != null ? guests : "Belum dipilih");
+        UserSession.setSearchFilter(
+            location,
+            date != null ? date.toString() : null,
+            guests
+        );
 
-        showInfo("Cek Ketersediaan", summary.toString());
+        try {
+            App.setRoot("HasilPencarian");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -110,7 +115,12 @@ public class LandingPageController {
 
     @FXML
     private void handleSearchRoom() {
-        showInfo("Cari Kamar", "Fitur halaman Cari Kamar belum dihubungkan.");
+        UserSession.setSearchFilter(null, null, null);
+        try {
+            App.setRoot("HasilPencarian");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -125,12 +135,12 @@ public class LandingPageController {
 
     @FXML
     private void handleBookingVilla2() {
-        showInfo("Booking", "Booking dipilih untuk Dhyana Villa (Card 2).");
+        showInfo("Booking", "Booking dipilih untuk Inten Villa (Card 2).");
     }
 
     @FXML
     private void handleBookingVilla3() {
-        showInfo("Booking", "Booking dipilih untuk Dhyana Villa (Card 3).");
+        showInfo("Booking", "Booking dipilih untuk Gina Villa (Card 3).");
     }
 
     private void showInfo(String title, String message) {
