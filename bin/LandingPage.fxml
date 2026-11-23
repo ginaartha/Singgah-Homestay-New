@@ -52,8 +52,16 @@
                 <Button fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 6 20 6 20; -fx-cursor: hand;" text="Masuk" />
             </HBox>
 
-            <!-- Profile Button (Shown when logged in, styled like Screenshot 3) -->
-            <Button fx:id="profileButton" managed="false" onAction="#handleProfileClick" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-text-fill: #1B431E; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 0;" text="👤" visible="false" />
+           <!-- Profile Button (Shown when logged in) -->
+            <Button fx:id="profileButton" managed="false" onAction="#handleProfileClick" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-cursor: hand; -fx-padding: 0;" visible="false">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/ProfileIcon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
 
         <!-- Hero Section -->
@@ -161,7 +169,7 @@
                     <padding>
                         <Insets bottom="20.0" left="18.0" right="18.0" top="14.0" />
                     </padding>
-                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Ubud, Bali" />
+                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Tabanan, Bali" />
                     <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Dhyana Villa" />
                     <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="2 tamu • Kamar mandi dalam • Wi-Fi" />
 
@@ -190,7 +198,7 @@
                     <padding>
                         <Insets bottom="20.0" left="18.0" right="18.0" top="14.0" />
                     </padding>
-                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Ubud, Bali" />
+                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Gianyar, Bali" />
                     <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Dhyana Villa" />
                     <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="2 tamu • Kamar mandi dalam • Wi-Fi" />
 
