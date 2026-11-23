@@ -17,7 +17,7 @@
 
     <VBox fillWidth="true" style="-fx-background-color: #1B431E;">
 
-        //navbar
+        <!-- navbar -->
         <HBox alignment="CENTER_LEFT" spacing="12.0"
               style="-fx-background-color: #163819; -fx-border-color: rgba(255,255,255,0.25); -fx-border-width: 0 0 1 0;">
             <padding>
@@ -50,7 +50,7 @@
                     style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 6 20 6 20;" />
         </HBox>
 
-        //hero
+        <!-- hero -->
         <StackPane alignment="CENTER_LEFT" minHeight="320.0"
                    style="-fx-background-color: #265229;">
             <padding>
