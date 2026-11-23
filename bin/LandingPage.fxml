@@ -141,7 +141,7 @@
                     <padding>
                         <Insets bottom="20.0" left="18.0" right="18.0" top="14.0" />
                     </padding>
-                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Ubud, Bali" />
+                    <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Klungkung, Bali" />
                     <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Dhyana Villa" />
                     <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="2 tamu • Kamar mandi dalam • Wi-Fi" />
 
@@ -171,8 +171,8 @@
                         <Insets bottom="20.0" left="18.0" right="18.0" top="14.0" />
                     </padding>
                     <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Tabanan, Bali" />
-                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Dhyana Villa" />
-                    <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="2 tamu • Kamar mandi dalam • Wi-Fi" />
+                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Inten Villa" />
+                    <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="3 tamu • Kamar mandi dalam • Wi-Fi" />
 
                     <HBox alignment="CENTER_LEFT" spacing="8.0">
                         <padding>
@@ -200,8 +200,8 @@
                         <Insets bottom="20.0" left="18.0" right="18.0" top="14.0" />
                     </padding>
                     <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Gianyar, Bali" />
-                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Dhyana Villa" />
-                    <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="2 tamu • Kamar mandi dalam • Wi-Fi" />
+                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 18px; -fx-font-weight: bold;" text="Gina Villa" />
+                    <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="4 tamu • Kamar mandi dalam • Wi-Fi" />
 
                     <HBox alignment="CENTER_LEFT" spacing="8.0">
                         <padding>
