@@ -31,7 +31,7 @@
                 </image>
             </ImageView>
 
-            <Label style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold;" text="Singgah" />
+            <Label style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia; " text="Singgah" />
 
             <Region HBox.hgrow="ALWAYS" />
 
