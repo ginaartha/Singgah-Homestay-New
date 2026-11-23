@@ -8,14 +8,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="760.0" prefWidth="1120.0" style="-fx-background: #265229; -fx-background-color: #265229;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ReservasiSayaController">
 
     <VBox fillWidth="true" minHeight="758.0" style="-fx-background-color: #265229;">
 
-        <!-- Top Navbar -->
+        <!-- Top Navbar (Disamakan persis dengan halaman lainnya) -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
             <padding>
                 <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
@@ -27,7 +26,7 @@
                 </image>
             </ImageView>
 
-            <Label onMouseClicked="#handleHome" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-cursor: hand;" text="Singgah" />
+            <Label onMouseClicked="#handleHome" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Georgia', serif; -fx-cursor: hand;" text="Singgah" />
 
             <Region HBox.hgrow="ALWAYS" />
 
@@ -70,77 +69,8 @@
             <!-- Page Title -->
             <Label style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" text="Reservasi Saya" />
 
-            <!-- Reservations Container -->
-            <VBox fx:id="reservationsContainer" spacing="20.0">
-
-                <!-- Dummy Card 1 (Sesuai Gambar Acuan) -->
-                <VBox spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 14, 0.1, 0, 4);">
-                    <padding>
-                        <Insets bottom="24.0" left="28.0" right="28.0" top="20.0" />
-                    </padding>
-
-                    <!-- Card Header: Order ID & Status Badge -->
-                    <HBox alignment="CENTER_LEFT">
-                        <HBox spacing="4.0">
-                            <Label style="-fx-text-fill: #666666; -fx-font-size: 12px;" text="No. pesanan" />
-                            <Label style="-fx-text-fill: #222222; -fx-font-size: 12px; -fx-font-weight: bold;" text="SGH-261208-001" />
-                        </HBox>
-
-                        <Region HBox.hgrow="ALWAYS" />
-
-                        <Label style="-fx-background-color: #E8EDE8; -fx-text-fill: #245228; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 14; -fx-padding: 5 14 5 14;" text="Terkonfirmasi" />
-                    </HBox>
-
-                    <!-- Card Body: Image + Villa Info + Total Payment -->
-                    <HBox alignment="CENTER_LEFT" spacing="22.0">
-                        <!-- Villa Thumbnail -->
-                        <StackPane maxHeight="135.0" maxWidth="195.0" minHeight="135.0" minWidth="195.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 12;">
-                            <ImageView fitHeight="135.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="false">
-                                <image>
-                                    <Image url="@images/DhyanaVilla.png" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-
-                        <!-- Middle Details -->
-                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
-                            <Label style="-fx-text-fill: #666666; -fx-font-size: 11px;" text="Ubud, Bali" />
-                            <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 20px; -fx-font-weight: bold;" text="Dhyana Villa" />
-                            <Label style="-fx-text-fill: #666666; -fx-font-size: 12px;" text="Kamar Deluxe  •  2 tamu  •  1 kamar" />
-
-                            <!-- Check-in / Check-out / Durasi -->
-                            <HBox spacing="28.0">
-                                <VBox.margin>
-                                    <Insets top="8.0" />
-                                </VBox.margin>
-
-                                <VBox spacing="2.0">
-                                    <Label style="-fx-text-fill: #888888; -fx-font-size: 11px;" text="Check-in" />
-                                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 13px; -fx-font-weight: bold;" text="08 Des 2026" />
-                                </VBox>
-
-                                <VBox spacing="2.0">
-                                    <Label style="-fx-text-fill: #888888; -fx-font-size: 11px;" text="Check-out" />
-                                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 13px; -fx-font-weight: bold;" text="10 Des 2026" />
-                                </VBox>
-
-                                <VBox spacing="2.0">
-                                    <Label style="-fx-text-fill: #888888; -fx-font-size: 11px;" text="Durasi" />
-                                    <Label style="-fx-text-fill: #1A1A1A; -fx-font-size: 13px; -fx-font-weight: bold;" text="2 malam" />
-                                </VBox>
-                            </HBox>
-                        </VBox>
-
-                        <!-- Right Payment Summary -->
-                        <VBox alignment="CENTER_RIGHT" spacing="4.0">
-                            <Label style="-fx-text-fill: #777777; -fx-font-size: 11px;" text="Total pembayaran" />
-                            <Label style="-fx-text-fill: #B84A27; -fx-font-size: 20px; -fx-font-weight: bold;" text="Rp 500.000" />
-                            <Label style="-fx-text-fill: #888888; -fx-font-size: 11px;" text="Lunas • 2 malam" />
-                        </VBox>
-                    </HBox>
-                </VBox>
-
-            </VBox>
+            <!-- Dynamic Reservations Container -->
+            <VBox fx:id="reservationsContainer" spacing="20.0" />
         </VBox>
 
     </VBox>

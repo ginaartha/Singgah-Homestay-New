@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserSession {
     private static String username;
     private static String fullName;
@@ -18,6 +22,46 @@ public class UserSession {
     private static String selectedVillaFacilities;
     private static int selectedVillaPrice;
     private static String selectedVillaImage;
+
+    // Detail booking aktif menuju halaman Pembayaran
+    private static LocalDate bookingCheckIn;
+    private static LocalDate bookingCheckOut;
+    private static String bookingGuests;
+    private static long bookingNights;
+    private static long bookingTotalAmount;
+
+    // Daftar reservasi milik user
+    public static class ReservationRecord {
+        public String orderCode;
+        public String status;
+        public String villaName;
+        public String location;
+        public String roomSummary;
+        public String checkInText;
+        public String checkOutText;
+        public String durationText;
+        public String totalPriceText;
+        public String paymentNote;
+        public String imagePath;
+
+        public ReservationRecord(String orderCode, String status, String villaName, String location,
+                                 String roomSummary, String checkInText, String checkOutText,
+                                 String durationText, String totalPriceText, String paymentNote, String imagePath) {
+            this.orderCode = orderCode;
+            this.status = status;
+            this.villaName = villaName;
+            this.location = location;
+            this.roomSummary = roomSummary;
+            this.checkInText = checkInText;
+            this.checkOutText = checkOutText;
+            this.durationText = durationText;
+            this.totalPriceText = totalPriceText;
+            this.paymentNote = paymentNote;
+            this.imagePath = imagePath;
+        }
+    }
+
+    private static final List<ReservationRecord> userReservations = new ArrayList<>();
 
     // Akun Admin bawaan
     private static final String ADMIN_USERNAME = "admin";
@@ -112,6 +156,42 @@ public class UserSession {
 
     public static String getSelectedVillaImage() {
         return selectedVillaImage;
+    }
+
+    public static void setActiveBooking(LocalDate checkIn, LocalDate checkOut, String guests, long nights, long totalAmount) {
+        UserSession.bookingCheckIn = checkIn;
+        UserSession.bookingCheckOut = checkOut;
+        UserSession.bookingGuests = guests;
+        UserSession.bookingNights = nights;
+        UserSession.bookingTotalAmount = totalAmount;
+    }
+
+    public static LocalDate getBookingCheckIn() {
+        return bookingCheckIn;
+    }
+
+    public static LocalDate getBookingCheckOut() {
+        return bookingCheckOut;
+    }
+
+    public static String getBookingGuests() {
+        return bookingGuests;
+    }
+
+    public static long getBookingNights() {
+        return bookingNights;
+    }
+
+    public static long getBookingTotalAmount() {
+        return bookingTotalAmount;
+    }
+
+    public static void addReservation(ReservationRecord record) {
+        userReservations.add(0, record); // Pesanan terbaru ditaruh paling atas
+    }
+
+    public static List<ReservationRecord> getUserReservations() {
+        return userReservations;
     }
 
     public static boolean isLoggedIn() {

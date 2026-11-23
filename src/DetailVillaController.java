@@ -126,16 +126,13 @@ public class DetailVillaController {
         long nights = ChronoUnit.DAYS.between(checkIn, checkOut);
         long total = nights * pricePerNight;
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Konfirmasi Pilih Kamar");
-        alert.setHeaderText(villaNameLabel.getText());
-        alert.setContentText(
-            "Check-in: " + checkIn + "\n" +
-            "Check-out: " + checkOut + " (" + nights + " malam)\n" +
-            "Tamu: " + guests + "\n" +
-            "Total: Rp " + String.format("%,d", total).replace(',', '.')
-        );
-        alert.showAndWait();
+        UserSession.setActiveBooking(checkIn, checkOut, guests, nights, total);
+
+        try {
+            App.setRoot("Pembayaran");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
