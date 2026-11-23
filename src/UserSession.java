@@ -91,6 +91,10 @@ public class UserSession {
         return fullName;
     }
 
+    public static String getEmail() {
+        return email;
+    }
+
     public static String getPhone() {
         return phone;
     }

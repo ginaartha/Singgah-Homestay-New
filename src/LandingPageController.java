@@ -1,11 +1,9 @@
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.HBox;
@@ -69,23 +67,17 @@ public class LandingPageController {
 
     @FXML
     private void handleProfileClick() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Profil Pengguna");
-        alert.setHeaderText("Halo, " + UserSession.getFullName() + " (@" + UserSession.getUsername() + ")");
-        alert.setContentText("Apakah Anda ingin keluar (Logout)?");
-
-        ButtonType logoutBtn = new ButtonType("Keluar");
-        ButtonType closeBtn = new ButtonType("Tutup");
-        alert.getButtonTypes().setAll(logoutBtn, closeBtn);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == logoutBtn) {
-            UserSession.logout();
-            try {
-                App.setRoot("LandingPage");
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (!UserSession.isLoggedIn()) {
+            return;
+        }
+        try {
+            if ("HOST".equalsIgnoreCase(UserSession.getRole())) {
+                App.setRoot("HostProfilPage");
+            } else {
+                App.setRoot("TamuProfilPage");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
