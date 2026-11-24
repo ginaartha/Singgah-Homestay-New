@@ -30,38 +30,34 @@ public class SignUpController {
             return;
         }
 
-        UserSession.registerUser(username, fullName, email, password, phone);
-        showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil", "Akun berhasil dibuat! Silakan masuk.");
-
-        try {
-            App.setRoot("SignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
+        boolean created = UserSession.registerUser(username, fullName, email, password, phone);
+        if (!created) {
+            showAlert(Alert.AlertType.ERROR, "Pendaftaran Gagal", "Username atau email sudah terdaftar. Gunakan yang lain.");
+            return;
         }
+
+        showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Berhasil", "Akun berhasil dibuat! Silakan masuk.");
+        navigate("SignInPage");
     }
 
     @FXML
     private void handleGoToSignIn() {
-        try {
-            App.setRoot("SignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignInPage");
     }
 
     @FXML
-    private void handleHostRegister() {
-        try {
-            App.setRoot("HostSignUpPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void handleGoToHostSignUp() {
+        navigate("HostSignUpPage");
     }
 
     @FXML
     private void handleBackToLanding() {
+        navigate("LandingPage");
+    }
+
+    private void navigate(String fxml) {
         try {
-            App.setRoot("LandingPage");
+            App.setRoot(fxml);
         } catch (IOException e) {
             e.printStackTrace();
         }

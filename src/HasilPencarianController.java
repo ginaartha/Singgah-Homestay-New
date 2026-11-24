@@ -23,30 +23,6 @@ public class HasilPencarianController {
     @FXML private Label filterSummaryLabel;
     @FXML private FlowPane resultsContainer;
 
-    private static class VillaItem {
-        String name;
-        String area;
-        String regency;
-        String fullAddress;
-        int maxGuests;
-        String facilities;
-        int pricePerNight;
-        String priceText;
-        String imagePath;
-
-        VillaItem(String name, String area, String regency, String fullAddress, int maxGuests, String facilities, int pricePerNight, String priceText, String imagePath) {
-            this.name = name;
-            this.area = area;
-            this.regency = regency;
-            this.fullAddress = fullAddress;
-            this.maxGuests = maxGuests;
-            this.facilities = facilities;
-            this.pricePerNight = pricePerNight;
-            this.priceText = priceText;
-            this.imagePath = imagePath;
-        }
-    }
-
     @FXML
     public void initialize() {
         boolean isLoggedIn = UserSession.isLoggedIn();
@@ -82,16 +58,10 @@ public class HasilPencarianController {
     private void loadFilteredVillas(String selectedLoc, String selectedGuests) {
         resultsContainer.getChildren().clear();
 
-        List<VillaItem> allVillas = List.of(
-            new VillaItem("Dhyana Villa", "Klungkung, Bali", "Klungkung", "Jl. Menuju Hatimu, No. 01, Kec. Klungkung, Kab. Klungkung, Bali", 2, "2 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
-            new VillaItem("Inten Villa", "Tabanan, Bali", "Tabanan", "Jl. Tanah Lot No. 12, Kec. Kediri, Kab. Tabanan, Bali", 3, "3 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png"),
-            new VillaItem("Gina Villa", "Gianyar, Bali", "Gianyar", "Jl. Raya Ubud No. 88, Kec. Ubud, Kab. Gianyar, Bali", 4, "4 tamu • Kamar mandi dalam • Wi-Fi", 250000, "Rp 250.000,00/malam", "/images/DhyanaVilla.png")
-        );
-
         int requiredGuests = parseGuestCount(selectedGuests);
         int matchCount = 0;
 
-        for (VillaItem villa : allVillas) {
+        for (UserSession.VillaData villa : UserSession.getAllVillas()) {
             boolean matchesLocation = (selectedLoc == null || selectedLoc.isEmpty() || villa.regency.equalsIgnoreCase(selectedLoc));
             boolean matchesGuests = (requiredGuests == 0 || villa.maxGuests >= requiredGuests);
 
@@ -118,7 +88,7 @@ public class HasilPencarianController {
         return 0;
     }
 
-    private VBox createVillaCard(VillaItem villa) {
+    private VBox createVillaCard(UserSession.VillaData villa) {
         VBox card = new VBox();
         card.setPrefWidth(300.0);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0.1, 0, 3);");
@@ -135,8 +105,7 @@ public class HasilPencarianController {
         imageView.setPreserveRatio(false);
         try {
             imageView.setImage(new Image(getClass().getResourceAsStream(villa.imagePath)));
-        } catch (Exception e) {
-            // Fallback jika gambar belum ada
+        } catch (Exception ignored) {
         }
         imageWrapper.getChildren().add(imageView);
 

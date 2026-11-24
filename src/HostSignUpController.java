@@ -30,7 +30,12 @@ public class HostSignUpController {
             return;
         }
 
-        UserSession.registerAccount(username, fullName, email, password, phone, "HOST");
+        boolean created = UserSession.registerAccount(username, fullName, email, password, phone, "HOST");
+        if (!created) {
+            showAlert(Alert.AlertType.ERROR, "Pendaftaran Gagal", "Username atau email sudah terdaftar. Gunakan yang lain.");
+            return;
+        }
+
         showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Host Berhasil", "Akun Host berhasil dibuat! Silakan masuk.");
 
         try {

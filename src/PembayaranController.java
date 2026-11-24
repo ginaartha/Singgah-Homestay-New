@@ -142,7 +142,7 @@ public class PembayaranController {
     }
 
     private void saveReservationToSession() {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MMM yyyy", new Locale("id", "ID"));
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.of("id", "ID"));
         LocalDate checkIn = UserSession.getBookingCheckIn() != null ? UserSession.getBookingCheckIn() : LocalDate.now().plusDays(1);
         LocalDate checkOut = UserSession.getBookingCheckOut() != null ? UserSession.getBookingCheckOut() : checkIn.plusDays(1);
         long nights = UserSession.getBookingNights() > 0 ? UserSession.getBookingNights() : 1;

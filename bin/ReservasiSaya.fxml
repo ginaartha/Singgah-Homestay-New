@@ -14,7 +14,7 @@
 
     <VBox fillWidth="true" minHeight="758.0" style="-fx-background-color: #265229;">
 
-        <!-- Top Navbar (Disamakan persis dengan halaman lainnya) -->
+        <!-- Top Navbar -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
             <padding>
                 <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
@@ -26,16 +26,16 @@
                 </image>
             </ImageView>
 
-            <Label onMouseClicked="#handleHome" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Georgia', serif; -fx-cursor: hand;" text="Singgah" />
+            <Label onMouseClicked="#handleHome" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia; -fx-cursor: hand;" text="Singgah" />
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <!-- Center Pill Menu (Reservasi Saya Active) -->
+            <!-- Center Pill Menu -->
             <HBox alignment="CENTER" spacing="18.0" style="-fx-background-color: white; -fx-background-radius: 30;">
                 <padding>
                     <Insets bottom="6.0" left="22.0" right="22.0" top="6.0" />
                 </padding>
-                <Button onAction="#handleHome" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-cursor: hand;" text="Beranda" />
+                <Button onAction="#handleHome" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-cursor: hand;" text="Daftar Reservasi" />
                 <Button onAction="#handleSearchRoom" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-cursor: hand;" text="Cari Kamar" />
                 <Button style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 15; -fx-padding: 4 14 4 14;" text="Reservasi Saya" />
             </HBox>
@@ -67,7 +67,7 @@
             </padding>
 
             <!-- Page Title -->
-            <Label style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" text="Reservasi Saya" />
+            <Label style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" text="Daftar Reservasi" />
 
             <!-- Dynamic Reservations Container -->
             <VBox fx:id="reservationsContainer" spacing="20.0" />

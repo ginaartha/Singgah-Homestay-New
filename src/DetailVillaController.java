@@ -17,19 +17,16 @@ public class DetailVillaController {
     @FXML private HBox authButtonsBox;
     @FXML private Button profileButton;
 
-    @FXML private ImageView mainPhotoView;
-    @FXML private ImageView subPhoto1View;
-    @FXML private ImageView subPhoto2View;
-    @FXML private ImageView subPhoto3View;
-
+    @FXML private ImageView villaImageView;
     @FXML private Label villaNameLabel;
     @FXML private Label villaAddressLabel;
-    @FXML private Label villaPriceLabel;
     @FXML private Label villaFacilitiesLabel;
+    @FXML private Label villaPriceLabel;
 
     @FXML private DatePicker checkInPicker;
     @FXML private DatePicker checkOutPicker;
     @FXML private ComboBox<String> guestCountComboBox;
+    @FXML private Label totalPriceLabel;
 
     private int pricePerNight = 250000;
 
@@ -44,54 +41,44 @@ public class DetailVillaController {
             profileButton.setManaged(isLoggedIn);
         }
 
-        // Load data villa yang dipilih dari UserSession
-        String name = UserSession.getSelectedVillaName();
-        String address = UserSession.getSelectedVillaAddress();
-        String facilities = UserSession.getSelectedVillaFacilities();
-        String imagePath = UserSession.getSelectedVillaImage();
-        int price = UserSession.getSelectedVillaPrice();
+        if (UserSession.getSelectedVillaName() != null) {
+            villaNameLabel.setText(UserSession.getSelectedVillaName());
+            villaAddressLabel.setText(UserSession.getSelectedVillaAddress());
+            villaFacilitiesLabel.setText(UserSession.getSelectedVillaFacilities());
+            pricePerNight = UserSession.getSelectedVillaPrice();
+            villaPriceLabel.setText("Rp " + String.format("%,d,00", pricePerNight).replace(',', '.') + "/malam");
 
-        if (name != null && !name.isEmpty()) {
-            villaNameLabel.setText(name);
-        }
-        if (address != null && !address.isEmpty()) {
-            villaAddressLabel.setText(address);
-        }
-        if (facilities != null && !facilities.isEmpty()) {
-            villaFacilitiesLabel.setText("Fasilitas: " + facilities);
-        }
-        if (price > 0) {
-            this.pricePerNight = price;
-            villaPriceLabel.setText(String.format("Rp%,d,00", price).replace(',', '.'));
-        }
-        if (imagePath != null && !imagePath.isEmpty()) {
             try {
-                Image img = new Image(getClass().getResourceAsStream(imagePath));
-                mainPhotoView.setImage(img);
-                subPhoto1View.setImage(img);
-                subPhoto2View.setImage(img);
-                subPhoto3View.setImage(img);
-            } catch (Exception e) {
-                // Fallback ke gambar default di FXML
-            }
-        }
-
-        // Default tanggal check-in & check-out
-        LocalDate defaultCheckIn = LocalDate.now().plusDays(1);
-        if (UserSession.getSearchDate() != null && !UserSession.getSearchDate().isEmpty()) {
-            try {
-                defaultCheckIn = LocalDate.parse(UserSession.getSearchDate());
+                if (UserSession.getSelectedVillaImage() != null) {
+                    villaImageView.setImage(new Image(getClass().getResourceAsStream(UserSession.getSelectedVillaImage())));
+                }
             } catch (Exception ignored) {
             }
         }
-        checkInPicker.setValue(defaultCheckIn);
-        checkOutPicker.setValue(defaultCheckIn.plusDays(1));
 
-        // Pilihan jumlah tamu
         guestCountComboBox.setItems(FXCollections.observableArrayList(
             "1 orang", "2 orang", "3 orang", "4 orang", "5 orang"
         ));
         guestCountComboBox.setValue("1 orang");
+
+        checkInPicker.setValue(LocalDate.now().plusDays(1));
+        checkOutPicker.setValue(LocalDate.now().plusDays(3));
+
+        checkInPicker.valueProperty().addListener((obs, oldVal, newVal) -> updateTotalPrice());
+        checkOutPicker.valueProperty().addListener((obs, oldVal, newVal) -> updateTotalPrice());
+        updateTotalPrice();
+    }
+
+    private void updateTotalPrice() {
+        LocalDate in = checkInPicker.getValue();
+        LocalDate out = checkOutPicker.getValue();
+        if (in != null && out != null && out.isAfter(in)) {
+            long nights = ChronoUnit.DAYS.between(in, out);
+            long total = nights * pricePerNight;
+            totalPriceLabel.setText("Rp " + String.format("%,d,00", total).replace(',', '.') + " (" + nights + " malam)");
+        } else {
+            totalPriceLabel.setText("Rp " + String.format("%,d,00", pricePerNight).replace(',', '.') + " (1 malam)");
+        }
     }
 
     @FXML
@@ -201,8 +188,11 @@ public class DetailVillaController {
             return;
         }
         try {
-            if ("HOST".equalsIgnoreCase(UserSession.getRole())) {
+            String role = UserSession.getRole();
+            if ("HOST".equalsIgnoreCase(role)) {
                 App.setRoot("HostProfilPage");
+            } else if ("ADMIN".equalsIgnoreCase(role)) {
+                App.setRoot("AdminDashboard");
             } else {
                 App.setRoot("TamuProfilPage");
             }

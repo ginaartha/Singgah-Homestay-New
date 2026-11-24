@@ -19,7 +19,6 @@
 
     <VBox fillWidth="true" style="-fx-background-color: #1B431E;">
 
-<!-- navbar -->
         <!-- navbar -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
             <padding>

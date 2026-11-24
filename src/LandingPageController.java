@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,17 +9,12 @@ import javafx.scene.layout.HBox;
 
 public class LandingPageController {
 
-    @FXML private Button homeButton;
-    @FXML private Button searchRoomButton;
-    @FXML private Button myReservationsButton;
+    // fx:id di LandingPage.fxml
     @FXML private HBox authButtonsBox;
-    @FXML private Button registerButton;
-    @FXML private Button loginButton;
     @FXML private Button profileButton;
     @FXML private ComboBox<String> locationComboBox;
-    @FXML private DatePicker datePicker;
+    @FXML private DatePicker datePicker; // sebelumnya checkInDatePicker (tidak cocok dengan FXML)
     @FXML private ComboBox<String> guestComboBox;
-    @FXML private Button checkAvailabilityButton;
 
     @FXML
     public void initialize() {
@@ -33,36 +27,56 @@ public class LandingPageController {
             profileButton.setManaged(isLoggedIn);
         }
 
-        if (locationComboBox != null && locationComboBox.getItems().isEmpty()) {
+        if (locationComboBox != null) {
             locationComboBox.setItems(FXCollections.observableArrayList(
                 "Badung", "Bangli", "Buleleng", "Denpasar",
                 "Gianyar", "Jembrana", "Karangasem", "Klungkung", "Tabanan"
             ));
         }
 
-        if (guestComboBox != null && guestComboBox.getItems().isEmpty()) {
+        if (guestComboBox != null) {
             guestComboBox.setItems(FXCollections.observableArrayList(
-                "1 tamu", "2 tamu", "3 tamu", "4 tamu", "5+ tamu"
+                "1 Tamu", "2 Tamu", "3 Tamu", "4 Tamu", "5+ Tamu"
             ));
         }
     }
 
+    // ===== NAVBAR =====
+
+    // onAction="#handleHome" (sebelumnya tidak ada di controller -> LoadException)
+    @FXML
+    private void handleHome() {
+        navigate("LandingPage");
+    }
+
+    @FXML
+    private void handleSearchRoom() {
+        UserSession.setSearchFilter(null, null, null);
+        navigate("HasilPencarian");
+    }
+
+    @FXML
+    private void handleMyReservations() {
+        if (!UserSession.isLoggedIn()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Masuk Diperlukan");
+            alert.setHeaderText(null);
+            alert.setContentText("Silakan masuk ke akun Anda terlebih dahulu untuk melihat Reservasi Saya.");
+            alert.showAndWait();
+            navigate("SignInPage");
+            return;
+        }
+        navigate("ReservasiSaya");
+    }
+
     @FXML
     private void handleRegister() {
-        try {
-            App.setRoot("SignUpPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignUpPage");
     }
 
     @FXML
     private void handleLogin() {
-        try {
-            App.setRoot("SignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignInPage");
     }
 
     @FXML
@@ -70,69 +84,31 @@ public class LandingPageController {
         if (!UserSession.isLoggedIn()) {
             return;
         }
-        try {
-            if ("HOST".equalsIgnoreCase(UserSession.getRole())) {
-                App.setRoot("HostProfilPage");
-            } else {
-                App.setRoot("TamuProfilPage");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String role = UserSession.getRole();
+        if ("HOST".equalsIgnoreCase(role)) {
+            navigate("HostProfilPage");
+        } else if ("ADMIN".equalsIgnoreCase(role)) {
+            navigate("AdminDashboard");
+        } else {
+            navigate("TamuProfilPage");
         }
     }
+
+    // ===== PENCARIAN =====
 
     @FXML
     private void handleCheckAvailability() {
-        String location = locationComboBox.getValue();
-        LocalDate date = datePicker.getValue();
-        String guests = guestComboBox.getValue();
+        String loc = locationComboBox != null ? locationComboBox.getValue() : null;
+        String date = (datePicker != null && datePicker.getValue() != null)
+            ? datePicker.getValue().toString()
+            : null;
+        String guests = guestComboBox != null ? guestComboBox.getValue() : null;
 
-        UserSession.setSearchFilter(
-            location,
-            date != null ? date.toString() : null,
-            guests
-        );
-
-        try {
-            App.setRoot("HasilPencarian");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UserSession.setSearchFilter(loc, date, guests);
+        navigate("HasilPencarian");
     }
 
-    @FXML
-    private void handleSearchRoom() {
-        UserSession.setSearchFilter(null, null, null);
-        try {
-            App.setRoot("HasilPencarian");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleMyReservations() {
-        if (!UserSession.isLoggedIn()) {
-            showInfo("Masuk Diperlukan", "Silakan masuk ke akun Anda terlebih dahulu untuk melihat Reservasi Saya.");
-            try {
-                App.setRoot("SignInPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
-        try {
-            App.setRoot("ReservasiSaya");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleHome() {
-        showInfo("Beranda", "Kamu sedang berada di halaman Beranda.");
-    }
+    // ===== KARTU VILLA (nama handler disamakan dengan FXML: handleBookingVilla1/2/3) =====
 
     @FXML
     private void handleBookingVilla1() {
@@ -143,7 +119,7 @@ public class LandingPageController {
             250000,
             "/images/DhyanaVilla.png"
         );
-        openDetailVilla();
+        navigate("DetailVilla");
     }
 
     @FXML
@@ -155,7 +131,7 @@ public class LandingPageController {
             250000,
             "/images/DhyanaVilla.png"
         );
-        openDetailVilla();
+        navigate("DetailVilla");
     }
 
     @FXML
@@ -167,22 +143,16 @@ public class LandingPageController {
             250000,
             "/images/DhyanaVilla.png"
         );
-        openDetailVilla();
+        navigate("DetailVilla");
     }
 
-    private void openDetailVilla() {
+    // ===== UTIL =====
+
+    private void navigate(String fxml) {
         try {
-            App.setRoot("DetailVilla");
+            App.setRoot(fxml);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

@@ -12,7 +12,6 @@ public class HostProfilController {
 
     @FXML
     public void initialize() {
-        // Proteksi: hanya bisa dilihat kalau sudah login sebagai HOST
         if (!UserSession.isLoggedIn() || !"HOST".equalsIgnoreCase(UserSession.getRole())) {
             Platform.runLater(() -> {
                 try {
@@ -33,7 +32,7 @@ public class HostProfilController {
     @FXML
     private void handleBackToLanding() {
         try {
-            App.setRoot("LandingPage");
+            App.setRoot("HostDashboard");
         } catch (IOException e) {
             e.printStackTrace();
         }

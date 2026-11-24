@@ -16,56 +16,69 @@ public class SignInController {
         String password = loginPasswordField.getText();
 
         if (identifier.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Input Kosong", "Masukkan username/email dan password Anda.");
+            showAlert(Alert.AlertType.WARNING, "Input Kosong", "Harap masukkan username/email dan kata sandi.");
             return;
         }
 
-        if (UserSession.authenticate(identifier, password)) {
-            try {
-                App.setRoot("LandingPage");
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (UserSession.authenticateWithRole(identifier, password, "GUEST") ||
+            UserSession.authenticateWithRole(identifier, password, "HOST") ||
+            UserSession.authenticateWithRole(identifier, password, "ADMIN")) {
+
+            String role = UserSession.getRole();
+            showAlert(Alert.AlertType.INFORMATION, "Login Berhasil", "Selamat datang kembali, " + UserSession.getFullName() + "!");
+
+            if ("HOST".equalsIgnoreCase(role)) {
+                navigate("HostDashboard");
+            } else if ("ADMIN".equalsIgnoreCase(role)) {
+                navigate("AdminDashboard");
+            } else {
+                navigate("LandingPage");
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "Gagal Masuk", "Username/email atau password salah. Pastikan Anda sudah mendaftar.");
+            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username/email tidak ditemukan atau kata sandi salah.");
+        }
+    }
+
+    // Dipasang di HBox navbar: klik 3x di area kosong navbar -> AdminSignInPage.
+    // Klik 1x pada logo/teks ditangani handleBackToLanding (event itu juga naik ke sini
+    // dengan clickCount 1, jadi tidak memicu apa-apa dan tidak ada navigasi ganda).
+    @FXML
+    private void handleLogoClick(MouseEvent event) {
+        if (event.getClickCount() == 3) {
+            navigate("AdminSignInPage");
         }
     }
 
     @FXML
     private void handleGoToSignUp() {
-        try {
-            App.setRoot("SignUpPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignUpPage");
     }
 
     @FXML
     private void handleGoToHostSignIn() {
-        try {
-            App.setRoot("HostSignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("HostSignInPage");
+    }
+
+    @FXML
+    private void handleGoToHostSignUp() {
+        navigate("HostSignUpPage");
+    }
+
+    @FXML
+    private void handleGoToAdminSignIn() {
+        navigate("AdminSignInPage");
     }
 
     @FXML
     private void handleBackToLanding() {
-        try {
-            App.setRoot("LandingPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("LandingPage");
     }
 
-    @FXML
-    private void handleLogoClick(MouseEvent event) {
-        if (event.getClickCount() == 3) {
-            try {
-                App.setRoot("AdminSignInPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void navigate(String fxml) {
+        try {
+            App.setRoot(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

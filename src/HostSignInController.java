@@ -21,11 +21,7 @@ public class HostSignInController {
 
         if (UserSession.authenticateWithRole(identifier, password, "HOST")) {
             showAlert(Alert.AlertType.INFORMATION, "Login Host Berhasil", "Selamat datang kembali, Host " + UserSession.getFullName() + "!");
-            try {
-                App.setRoot("LandingPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            navigate("HostDashboard");
         } else {
             showAlert(Alert.AlertType.ERROR, "Gagal Masuk", "Akun Host tidak ditemukan atau password salah.");
         }
@@ -33,28 +29,36 @@ public class HostSignInController {
 
     @FXML
     private void handleGoToHostSignUp() {
-        try {
-            App.setRoot("HostSignUpPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("HostSignUpPage");
     }
 
     @FXML
     private void handleGoToGuestSignIn() {
-        try {
-            App.setRoot("SignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignInPage");
     }
 
     @FXML
     private void handleBackToLanding() {
+        navigate("LandingPage");
+    }
+
+    // Kalau gagal membuka halaman, penyebabnya muncul di jendela dan di terminal
+    private void navigate(String fxml) {
         try {
-            App.setRoot("LandingPage");
+            App.setRoot(fxml);
         } catch (IOException e) {
             e.printStackTrace();
+
+            String detail = String.valueOf(e.getMessage());
+            if (e.getCause() != null) {
+                detail += "\n\nPenyebab: " + e.getCause();
+            }
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Gagal membuka halaman");
+            alert.setHeaderText(fxml);
+            alert.setContentText(detail);
+            alert.showAndWait();
         }
     }
 
