@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="760.0" prefWidth="1120.0" style="-fx-background: #1B431E; -fx-background-color: #1B431E;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.KelolaReservasiController">
+
+    <VBox fillWidth="true" minHeight="758.0" style="-fx-background-color: #1B431E;">
+
+        <!-- Top Navbar Khusus Host -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
+            <padding>
+                <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
+            </padding>
+
+            <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#handleGoToKelolaHomestay" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                <image>
+                    <Image url="@../images/SinggahLogo.png" />
+                </image>
+            </ImageView>
+
+            <Label onMouseClicked="#handleGoToKelolaHomestay" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia; -fx-cursor: hand;" text="Singgah" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Center Pill Navigation -->
+            <HBox alignment="CENTER" spacing="14.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+                <padding>
+                    <Insets bottom="6.0" left="20.0" right="20.0" top="6.0" />
+                </padding>
+                <Button onAction="#handleGoToKelolaHomestay" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-padding: 5 16 5 16; -fx-cursor: hand;" text="Kelola Homestay" />
+                <Button style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 15; -fx-padding: 5 16 5 16; -fx-cursor: hand;" text="Kelola Reservasi" />
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Profile Button -->
+            <Button onAction="#handleProfileClick" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-cursor: hand; -fx-padding: 0;">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/ProfileIcon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+
+        <!-- Hero Header -->
+        <StackPane alignment="CENTER_LEFT" minHeight="195.0" style="-fx-background-color: #265229;">
+            <padding>
+                <Insets bottom="32.0" left="64.0" right="64.0" top="32.0" />
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                <VBox maxWidth="650.0" spacing="8.0">
+                    <VBox spacing="-2.0">
+                        <Label style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" text="Kelola Reservasi," />
+                        <Label style="-fx-text-fill: #E8A838; -fx-font-size: 36px; -fx-font-weight: bold;" text="Daftar Kamar Direservasi." />
+                    </VBox>
+                    <Label style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" text="Menampilkan reservasi tamu yang sudah menyelesaikan pembayaran beserta jadwal check-in dan check-out." wrapText="true" />
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Statistik Singkat -->
+                <VBox alignment="CENTER" style="-fx-background-color: rgba(255,255,255,0.12); -fx-background-radius: 14; -fx-padding: 16 26 16 26;">
+                    <Label fx:id="totalPaidReservationsLabel" style="-fx-text-fill: #E8A838; -fx-font-size: 28px; -fx-font-weight: bold;" text="0" />
+                    <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Reservasi Terbayar" />
+                </VBox>
+            </HBox>
+        </StackPane>
+
+        <!-- Main Body -->
+        <VBox spacing="22.0">
+            <padding>
+                <Insets bottom="56.0" left="64.0" right="64.0" top="30.0" />
+            </padding>
+
+            <!-- Ringkasan Kamar yang Sedang Direservasi -->
+            <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 14; -fx-padding: 16 22 16 22;">
+                <Label style="-fx-text-fill: #E8A838; -fx-font-size: 13px; -fx-font-weight: bold;" text="Ringkasan Kamar yang Sedang Direservasi:" />
+                <FlowPane fx:id="bookedRoomsSummaryPane" hgap="10.0" vgap="10.0" />
+            </VBox>
+
+            <!-- Daftar Kartu Reservasi -->
+            <VBox fx:id="reservationsContainer" spacing="20.0" />
+        </VBox>
+
+    </VBox>
+</ScrollPane>

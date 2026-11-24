@@ -1,4 +1,5 @@
 package models;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,10 +123,21 @@ public class UserSession {
         public String totalPriceText;
         public String paymentNote;
         public String imagePath;
+        public String guestUsername;
+        public String guestFullName;
+        public boolean isPaid;
 
         public ReservationRecord(String orderCode, String status, String villaName, String location,
                                  String roomSummary, String checkInText, String checkOutText,
                                  String durationText, String totalPriceText, String paymentNote, String imagePath) {
+            this(orderCode, status, villaName, location, roomSummary, checkInText, checkOutText,
+                 durationText, totalPriceText, paymentNote, imagePath, "", "", true);
+        }
+
+        public ReservationRecord(String orderCode, String status, String villaName, String location,
+                                 String roomSummary, String checkInText, String checkOutText,
+                                 String durationText, String totalPriceText, String paymentNote, String imagePath,
+                                 String guestUsername, String guestFullName, boolean isPaid) {
             this.orderCode = orderCode;
             this.status = status;
             this.villaName = villaName;
@@ -137,6 +149,9 @@ public class UserSession {
             this.totalPriceText = totalPriceText;
             this.paymentNote = paymentNote;
             this.imagePath = imagePath;
+            this.guestUsername = guestUsername != null ? guestUsername : "";
+            this.guestFullName = guestFullName != null ? guestFullName : "";
+            this.isPaid = isPaid;
         }
     }
 
@@ -311,5 +326,15 @@ public class UserSession {
 
     public static List<ReservationRecord> getUserReservations() {
         return userReservations;
+    }
+
+    public static List<ReservationRecord> getPaidReservations() {
+        List<ReservationRecord> paid = new ArrayList<>();
+        for (ReservationRecord r : userReservations) {
+            if (r.isPaid) {
+                paid.add(r);
+            }
+        }
+        return paid;
     }
 }

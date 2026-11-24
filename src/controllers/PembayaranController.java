@@ -1,10 +1,10 @@
 package controllers;
+
+import app.App;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-
-import app.App;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -27,7 +27,7 @@ public class PembayaranController {
     @FXML private TextField senderNameField;
     @FXML private Button lanjutBtn;
 
-    private String selectedMethod = null; // "TUNAI" atau "NONTUNAI"
+    private String selectedMethod = null;
     private boolean stepTwoShown = false;
 
     private static final String SELECTED_STYLE =
@@ -37,7 +37,6 @@ public class PembayaranController {
 
     @FXML
     public void initialize() {
-        // Proteksi: wajib login terlebih dahulu
         if (!UserSession.isLoggedIn()) {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -68,7 +67,6 @@ public class PembayaranController {
         tunaiBtn.setStyle(SELECTED_STYLE);
         nonTunaiBtn.setStyle(UNSELECTED_STYLE);
 
-        // Reset ke langkah 1 kalau user mengganti metode
         stepTwoShown = false;
         paymentDetailBox.setVisible(false);
         paymentDetailBox.setManaged(false);
@@ -81,7 +79,6 @@ public class PembayaranController {
         nonTunaiBtn.setStyle(SELECTED_STYLE);
         tunaiBtn.setStyle(UNSELECTED_STYLE);
 
-        // Reset ke langkah 1 kalau user mengganti metode
         stepTwoShown = false;
         paymentDetailBox.setVisible(false);
         paymentDetailBox.setManaged(false);
@@ -99,7 +96,6 @@ public class PembayaranController {
             return;
         }
 
-        // Langkah 1: Tampilkan instruksi Tunai atau Rekening Pemilik (Non-tunai)
         if (!stepTwoShown) {
             stepTwoShown = true;
             paymentDetailBox.setVisible(true);
@@ -125,7 +121,6 @@ public class PembayaranController {
             return;
         }
 
-        // Langkah 2: Simpan ke Reservasi Saya dan pindah ke halaman ReservasiSaya
         saveReservationToSession();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -157,6 +152,9 @@ public class PembayaranController {
         String statusText = "TUNAI".equals(selectedMethod) ? "Bayar di Tempat" : "Terkonfirmasi";
         String paymentNote = "TUNAI".equals(selectedMethod) ? "Tunai • " + nights + " malam" : "Lunas • " + nights + " malam";
 
+        String guestUsername = UserSession.getUsername() != null ? UserSession.getUsername() : "tamu";
+        String guestFullName = UserSession.getFullName() != null ? UserSession.getFullName() : "";
+
         UserSession.ReservationRecord record = new UserSession.ReservationRecord(
             orderCode,
             statusText,
@@ -168,7 +166,10 @@ public class PembayaranController {
             nights + " malam",
             "Rp " + String.format("%,d", total).replace(',', '.'),
             paymentNote,
-            UserSession.getSelectedVillaImage() != null ? UserSession.getSelectedVillaImage() : "/images/DhyanaVilla.png"
+            UserSession.getSelectedVillaImage() != null ? UserSession.getSelectedVillaImage() : "/images/DhyanaVilla.png",
+            guestUsername,
+            guestFullName,
+            true
         );
 
         UserSession.addReservation(record);

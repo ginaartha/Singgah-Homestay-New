@@ -34,12 +34,13 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <!-- Center Pill Navigation -->
-            <HBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 30;">
+            <!-- Center Pill Navigation (Kelola Homestay & Kelola Reservasi) -->
+            <HBox alignment="CENTER" spacing="14.0" style="-fx-background-color: white; -fx-background-radius: 30;">
                 <padding>
-                    <Insets bottom="6.0" left="18.0" right="18.0" top="6.0" />
+                    <Insets bottom="6.0" left="20.0" right="20.0" top="6.0" />
                 </padding>
-                <Button fx:id="navKelolaBtn" onAction="#handleShowKelolaHomestay" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 15; -fx-padding: 5 18 5 18; -fx-cursor: hand;" text="Kelola Homestay" />
+                <Button fx:id="navKelolaBtn" onAction="#handleShowKelolaHomestay" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 15; -fx-padding: 5 16 5 16; -fx-cursor: hand;" text="Kelola Homestay" />
+                <Button onAction="#handleGoToKelolaReservasi" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-padding: 5 16 5 16; -fx-cursor: hand;" text="Kelola Reservasi" />
             </HBox>
 
             <Region HBox.hgrow="ALWAYS" />
@@ -68,7 +69,7 @@
                         <Label style="-fx-text-fill: white; -fx-font-size: 38px; -fx-font-weight: bold;" text="Kelola Homestay," />
                         <Label style="-fx-text-fill: #E8A838; -fx-font-size: 38px; -fx-font-weight: bold;" text="Host Dashboard Singgah." />
                     </VBox>
-                    <Label fx:id="welcomeHostLabel" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" text="Tambah listing properti, edit detail kamar, dan pantau progres reservasi tamu." wrapText="true" />
+                    <Label fx:id="welcomeHostLabel" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;" text="Tambah listing properti dan edit detail kamar homestay Anda." wrapText="true" />
                 </VBox>
 
                 <Region HBox.hgrow="ALWAYS" />
@@ -79,23 +80,20 @@
                         <Label fx:id="statTotalVillaLabel" style="-fx-text-fill: #E8A838; -fx-font-size: 26px; -fx-font-weight: bold;" text="3" />
                         <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Listing Aktif" />
                     </VBox>
-                    <VBox alignment="CENTER" style="-fx-background-color: rgba(255,255,255,0.12); -fx-background-radius: 14; -fx-padding: 14 22 14 22;">
+                    <VBox alignment="CENTER" onMouseClicked="#handleGoToKelolaReservasi" style="-fx-background-color: rgba(255,255,255,0.12); -fx-background-radius: 14; -fx-padding: 14 22 14 22; -fx-cursor: hand;">
                         <Label fx:id="statTotalBookingLabel" style="-fx-text-fill: #E8A838; -fx-font-size: 26px; -fx-font-weight: bold;" text="0" />
-                        <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Kamar Dibooking" />
+                        <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Kamar Direservasi" />
                     </VBox>
                 </HBox>
             </HBox>
         </StackPane>
 
-        <!-- Main Body Container -->
-        <VBox spacing="34.0">
+        <!-- Main Body Container: Kelola Homestay -->
+        <VBox spacing="24.0">
             <padding>
                 <Insets bottom="56.0" left="64.0" right="64.0" top="32.0" />
             </padding>
 
-            <!-- ========================================================= -->
-            <!-- BAGIAN 1: KELOLA HOMESTAY (Tambah Listing & Edit Kamar)   -->
-            <!-- ========================================================= -->
             <VBox fx:id="kelolaSection" spacing="18.0">
                 <HBox alignment="CENTER_LEFT">
                     <VBox spacing="3.0">
@@ -169,26 +167,6 @@
                 <!-- Kartu-kartu Listing Villa -->
                 <FlowPane fx:id="hostVillasContainer" hgap="24.0" prefWrapLength="990.0" vgap="24.0" />
             </VBox>
-
-            <!-- ========================================================= -->
-            <!-- BAGIAN 2: DAFTAR RESERVASI & PROGRES KAMAR DIBOOKING      -->
-            <!-- ========================================================= -->
-            <VBox fx:id="reservasiSection" spacing="18.0">
-                <VBox spacing="4.0">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Daftar Reservasi &amp; Progres Kamar" />
-                    <Label style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12px;" text="Pantau detail kamar yang sedang dibooking tamu dan perbarui progres menginap" />
-                </VBox>
-
-                <!-- Ringkasan List Kamar Mana Saja yang Dibooking -->
-                <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 14; -fx-padding: 16 22 16 22;">
-                    <Label style="-fx-text-fill: #E8A838; -fx-font-size: 13px; -fx-font-weight: bold;" text="Daftar Kamar yang Dibooking:" />
-                    <FlowPane fx:id="bookedRoomsSummaryPane" hgap="10.0" vgap="10.0" />
-                </VBox>
-
-                <!-- Kartu Detail Reservasi -->
-                <VBox fx:id="reservationsContainer" spacing="20.0" />
-            </VBox>
-
         </VBox>
     </VBox>
 </ScrollPane>
