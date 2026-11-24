@@ -27,7 +27,7 @@
 
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@images/SinggahLogo.png" />
+                    <Image url="@../images/SinggahLogo.png" />
                 </image>
             </ImageView>
 
@@ -57,7 +57,7 @@
                 <graphic>
                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@images/ProfileIcon.png" />
+                            <Image url="@../images/ProfileIcon.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -131,7 +131,7 @@
                 <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
                     <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
                         <image>
-                            <Image url="@images/DhyanaVilla.png" />
+                            <Image url="@../images/DhyanaVilla.png" />
                         </image>
                     </ImageView>
                 </StackPane>
@@ -160,7 +160,7 @@
                 <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
                     <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
                         <image>
-                            <Image url="@images/DhyanaVilla.png" />
+                            <Image url="@../images/DhyanaVilla.png" />
                         </image>
                     </ImageView>
                 </StackPane>
@@ -189,7 +189,7 @@
                 <StackPane minHeight="170.0" prefHeight="170.0" style="-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;">
                     <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false">
                         <image>
-                            <Image url="@images/DhyanaVilla.png" />
+                            <Image url="@../images/DhyanaVilla.png" />
                         </image>
                     </ImageView>
                 </StackPane>

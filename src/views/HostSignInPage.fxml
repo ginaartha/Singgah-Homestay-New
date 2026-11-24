@@ -23,7 +23,7 @@
 
             <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#handleLogoClick" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                 <image>
-                    <Image url="@images/SinggahLogo.png" />
+                    <Image url="@../images/SinggahLogo.png" />
                 </image>
             </ImageView>
 

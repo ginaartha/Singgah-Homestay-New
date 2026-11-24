@@ -23,7 +23,7 @@
             </padding>
             <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#handleBackToLanding" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                 <image>
-                    <Image url="@images/SinggahLogo.png" />
+                    <Image url="@../images/SinggahLogo.png" />
                 </image>
             </ImageView>
             <Label onMouseClicked="#handleBackToLanding" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia; -fx-cursor: hand;" text="Singgah" />
