@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="760.0" prefWidth="1120.0" style="-fx-background-color: #265229;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HostProfilController">
+
+    <!-- Top Navbar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #163819;">
+            <padding>
+                <Insets bottom="16.0" left="48.0" right="48.0" top="16.0" />
+            </padding>
+
+            <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#handleBackToDashboard" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                <image>
+                    <Image url="@images/SinggahLogo.png" />
+                </image>
+            </ImageView>
+
+            <Label onMouseClicked="#handleBackToDashboard" style="-fx-text-fill: #E8A838; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia; -fx-cursor: hand;" text="Singgah" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Profile Icon Button -->
+            <Button prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-padding: 0;">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/ProfileIcon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: #265229; -fx-background-color: #265229;">
+            <VBox alignment="CENTER" spacing="22.0">
+                <padding>
+                    <Insets bottom="40.0" left="40.0" right="40.0" top="20.0" />
+                </padding>
+
+                <!-- Title -->
+                <Label style="-fx-text-fill: #F2A007; -fx-font-size: 36px; -fx-font-weight: bold; -fx-font-family: 'Georgia', serif;" text="Profil" />
+
+                <!-- White Profile Card -->
+                <VBox maxWidth="640.0" prefWidth="640.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16, 0.1, 0, 5);">
+                    <padding>
+                        <Insets bottom="36.0" left="44.0" right="48.0" top="36.0" />
+                    </padding>
+
+                    <HBox alignment="TOP_LEFT" spacing="36.0">
+                        <!-- Left Avatar Circle -->
+                        <StackPane maxHeight="104.0" maxWidth="104.0" minHeight="104.0" minWidth="104.0" style="-fx-background-color: white; -fx-border-color: #163819; -fx-border-width: 4; -fx-border-radius: 52; -fx-background-radius: 52;">
+                            <VBox.margin>
+                                <Insets top="8.0" />
+                            </VBox.margin>
+                            <ImageView fitHeight="56.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@images/ProfileIcon.png" />
+                                </image>
+                            </ImageView>
+                        </StackPane>
+
+                        <!-- Right Host Details -->
+                        <VBox spacing="12.0" HBox.hgrow="ALWAYS">
+                            <VBox spacing="4.0">
+                                <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Username" />
+                                <TextField fx:id="usernameField" editable="false" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                            </VBox>
+
+                            <VBox spacing="4.0">
+                                <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Nama Lengkap" />
+                                <TextField fx:id="fullNameField" editable="false" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                            </VBox>
+
+                            <VBox spacing="4.0">
+                                <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Email" />
+                                <TextField fx:id="emailField" editable="false" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                            </VBox>
+
+                            <VBox spacing="4.0">
+                                <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Nomor HP" />
+                                <TextField fx:id="phoneField" editable="false" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                            </VBox>
+
+                            <!-- Nama Bank & Nomor Rekening Host (Bebas Input) -->
+                            <HBox spacing="10.0">
+                                <VBox prefWidth="150.0" spacing="4.0">
+                                    <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Nama Bank" />
+                                    <TextField fx:id="bankNameField" editable="false" promptText="Nama bank" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                                </VBox>
+                                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                    <Label style="-fx-text-fill: #245228; -fx-font-weight: bold; -fx-font-size: 12px;" text="Nomor Rekening" />
+                                    <TextField fx:id="bankAccountField" editable="false" promptText="Nomor rekening" style="-fx-background-color: white; -fx-border-color: #8BA38D; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-size: 13px; -fx-text-fill: #333333;" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Action Buttons -->
+                            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                <VBox.margin>
+                                    <Insets top="8.0" />
+                                </VBox.margin>
+                                <Button fx:id="editProfileBtn" onAction="#handleEnableEdit" style="-fx-background-color: #F2A007; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Edit Profil" />
+                                <Button fx:id="cancelEditBtn" managed="false" onAction="#handleCancelEdit" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 14 8 14; -fx-cursor: hand;" text="Batal" visible="false" />
+                                <Button fx:id="saveProfileBtn" managed="false" onAction="#handleSaveProfile" style="-fx-background-color: #245228; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Simpan" visible="false" />
+                                <Button fx:id="backBtn" onAction="#handleBackToDashboard" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Kembali" />
+                                <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-color: #B84A27; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 18 8 18; -fx-cursor: hand;" text="Keluar" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
