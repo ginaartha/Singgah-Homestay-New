@@ -13,14 +13,23 @@ public class UserSession {
         public String password;
         public String phone;
         public String role;
+        public String bankName;
+        public String bankAccount;
 
         public Account(String username, String fullName, String email, String password, String phone, String role) {
+            this(username, fullName, email, password, phone, role, "", "");
+        }
+
+        public Account(String username, String fullName, String email, String password, String phone, String role,
+                       String bankName, String bankAccount) {
             this.username = username;
             this.fullName = fullName;
             this.email = email;
             this.password = password;
             this.phone = phone;
             this.role = role;
+            this.bankName = bankName != null ? bankName : "";
+            this.bankAccount = bankAccount != null ? bankAccount : "";
         }
     }
 
@@ -146,14 +155,28 @@ public class UserSession {
     }
 
     public static boolean registerUser(String username, String fullName, String email, String password, String phone) {
-        return registerAccount(username, fullName, email, password, phone, "GUEST");
+        return registerAccount(username, fullName, email, password, phone, "GUEST", "", "");
     }
 
     public static boolean registerAccount(String username, String fullName, String email, String password, String phone, String role) {
+        return registerAccount(username, fullName, email, password, phone, role, "", "");
+    }
+
+    public static boolean registerAccount(String username, String fullName, String email, String password, String phone,
+                                          String role, String bankName, String bankAccount) {
         if (isUsernameOrEmailTaken(username, email)) {
             return false;
         }
-        Account newAcc = new Account(username.trim(), fullName.trim(), email.trim(), password, phone.trim(), role);
+        Account newAcc = new Account(
+            username.trim(),
+            fullName.trim(),
+            email.trim(),
+            password,
+            phone.trim(),
+            role,
+            bankName != null ? bankName.trim() : "",
+            bankAccount != null ? bankAccount.trim() : ""
+        );
         accounts.put(username.trim().toLowerCase(), newAcc);
         return true;
     }
@@ -201,6 +224,41 @@ public class UserSession {
 
     public static String getRole() {
         return currentUser != null ? currentUser.role : "GUEST";
+    }
+
+    public static String getHostBankName() {
+        return (currentUser != null && currentUser.bankName != null) ? currentUser.bankName : "";
+    }
+
+    public static String getHostBankAccount() {
+        return (currentUser != null && currentUser.bankAccount != null) ? currentUser.bankAccount : "";
+    }
+
+    public static boolean hasHostBankDetails() {
+        return !getHostBankName().trim().isEmpty() && !getHostBankAccount().trim().isEmpty();
+    }
+
+    public static boolean updateCurrentUserProfile(String fullName, String email, String phone,
+                                                   String bankName, String bankAccount) {
+        if (currentUser == null) {
+            return false;
+        }
+        String trimmedEmail = email.trim();
+        for (Account acc : accounts.values()) {
+            if (acc != currentUser && acc.email != null && acc.email.equalsIgnoreCase(trimmedEmail)) {
+                return false;
+            }
+        }
+        currentUser.fullName = fullName.trim();
+        currentUser.email = trimmedEmail;
+        currentUser.phone = phone.trim();
+        if (bankName != null) {
+            currentUser.bankName = bankName.trim();
+        }
+        if (bankAccount != null) {
+            currentUser.bankAccount = bankAccount.trim();
+        }
+        return true;
     }
 
     public static void logout() {

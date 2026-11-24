@@ -11,64 +11,79 @@ public class HostSignUpController {
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private TextField phoneField;
+    @FXML private TextField bankNameField;
+    @FXML private TextField bankAccountField;
 
     @FXML
-    private void handleHostSignUpSubmit() {
+    private void handleHostRegisterSubmit() {
         String username = usernameField.getText().trim();
         String fullName = fullNameField.getText().trim();
         String email = emailField.getText().trim();
         String password = passwordField.getText();
         String phone = phoneField.getText().trim();
+        String bankName = bankNameField.getText().trim();
+        String bankAccount = bankAccountField.getText().trim();
 
-        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Form Belum Lengkap", "Harap isi semua kolom pendaftaran host.");
+        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty()
+                || phone.isEmpty() || bankName.isEmpty() || bankAccount.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Data Belum Lengkap",
+                "Harap isi semua kolom termasuk Nama Bank dan Nomor Rekening.");
             return;
         }
 
         if (password.length() < 8) {
-            showAlert(Alert.AlertType.WARNING, "Password Terlalu Pendek", "Password harus minimal 8 karakter.");
+            showAlert(Alert.AlertType.WARNING, "Password Terlalu Pendek",
+                "Password minimal 8 karakter.");
             return;
         }
 
-        boolean created = UserSession.registerAccount(username, fullName, email, password, phone, "HOST");
-        if (!created) {
-            showAlert(Alert.AlertType.ERROR, "Pendaftaran Gagal", "Username atau email sudah terdaftar. Gunakan yang lain.");
+        if (!bankAccount.matches("\\d+")) {
+            showAlert(Alert.AlertType.WARNING, "Format Rekening Salah",
+                "Nomor rekening harus berupa angka.");
             return;
         }
 
-        showAlert(Alert.AlertType.INFORMATION, "Pendaftaran Host Berhasil", "Akun Host berhasil dibuat! Silakan masuk.");
+        boolean success = UserSession.registerAccount(
+            username, fullName, email, password, phone, "HOST", bankName, bankAccount
+        );
 
-        try {
-            App.setRoot("HostSignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!success) {
+            showAlert(Alert.AlertType.ERROR, "Registrasi Gagal",
+                "Username atau email sudah terdaftar.");
+            return;
         }
+
+        showAlert(Alert.AlertType.INFORMATION, "Registrasi Host Berhasil",
+            "Akun Host dan rekening bank berhasil didaftarkan! Silakan masuk.");
+        handleGoToHostSignIn();
     }
 
     @FXML
     private void handleGoToHostSignIn() {
-        try {
-            App.setRoot("HostSignInPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("HostSignInPage");
     }
 
     @FXML
     private void handleGoToGuestSignUp() {
-        try {
-            App.setRoot("SignUpPage");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigate("SignUpPage");
+    }
+
+    @FXML
+    private void handleLogoClick() {
+        navigate("LandingPage");
     }
 
     @FXML
     private void handleBackToLanding() {
+        navigate("LandingPage");
+    }
+
+    private void navigate(String fxml) {
         try {
-            App.setRoot("LandingPage");
+            App.setRoot(fxml);
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Gagal Membuka Halaman", fxml + ": " + e.getMessage());
         }
     }
 

@@ -17,7 +17,11 @@ public class DetailVillaController {
     @FXML private HBox authButtonsBox;
     @FXML private Button profileButton;
 
-    @FXML private ImageView villaImageView;
+    @FXML private ImageView mainPhotoView;
+    @FXML private ImageView subPhoto1View;
+    @FXML private ImageView subPhoto2View;
+    @FXML private ImageView subPhoto3View;
+
     @FXML private Label villaNameLabel;
     @FXML private Label villaAddressLabel;
     @FXML private Label villaFacilitiesLabel;
@@ -44,15 +48,16 @@ public class DetailVillaController {
         if (UserSession.getSelectedVillaName() != null) {
             villaNameLabel.setText(UserSession.getSelectedVillaName());
             villaAddressLabel.setText(UserSession.getSelectedVillaAddress());
-            villaFacilitiesLabel.setText(UserSession.getSelectedVillaFacilities());
+            villaFacilitiesLabel.setText("Fasilitas: " + UserSession.getSelectedVillaFacilities());
             pricePerNight = UserSession.getSelectedVillaPrice();
-            villaPriceLabel.setText("Rp " + String.format("%,d,00", pricePerNight).replace(',', '.') + "/malam");
+            villaPriceLabel.setText("Rp" + String.format("%,d,00", pricePerNight).replace(',', '.'));
 
-            try {
-                if (UserSession.getSelectedVillaImage() != null) {
-                    villaImageView.setImage(new Image(getClass().getResourceAsStream(UserSession.getSelectedVillaImage())));
-                }
-            } catch (Exception ignored) {
+            Image img = loadImage(UserSession.getSelectedVillaImage());
+            if (img != null) {
+                if (mainPhotoView != null) mainPhotoView.setImage(img);
+                if (subPhoto1View != null) subPhoto1View.setImage(img);
+                if (subPhoto2View != null) subPhoto2View.setImage(img);
+                if (subPhoto3View != null) subPhoto3View.setImage(img);
             }
         }
 
@@ -69,7 +74,25 @@ public class DetailVillaController {
         updateTotalPrice();
     }
 
+    private Image loadImage(String path) {
+        if (path == null || path.isEmpty()) {
+            return null;
+        }
+        try {
+            if (path.startsWith("file:") || path.startsWith("http:") || path.startsWith("https:")) {
+                return new Image(path);
+            }
+            var stream = getClass().getResourceAsStream(path);
+            return stream != null ? new Image(stream) : null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private void updateTotalPrice() {
+        if (totalPriceLabel == null) {
+            return;
+        }
         LocalDate in = checkInPicker.getValue();
         LocalDate out = checkOutPicker.getValue();
         if (in != null && out != null && out.isAfter(in)) {
@@ -191,8 +214,6 @@ public class DetailVillaController {
             String role = UserSession.getRole();
             if ("HOST".equalsIgnoreCase(role)) {
                 App.setRoot("HostProfilPage");
-            } else if ("ADMIN".equalsIgnoreCase(role)) {
-                App.setRoot("AdminDashboard");
             } else {
                 App.setRoot("TamuProfilPage");
             }

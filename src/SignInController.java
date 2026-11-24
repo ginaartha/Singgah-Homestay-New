@@ -25,7 +25,7 @@ public class SignInController {
         }
 
         if (UserSession.authenticateWithRole(identifier, password, "ADMIN")) {
-            navigate("AdminDashboard");
+            navigate("LandingPage");
             return;
         }
 

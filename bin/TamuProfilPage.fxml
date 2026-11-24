@@ -100,8 +100,11 @@
                             <VBox.margin>
                                 <Insets top="8.0" />
                             </VBox.margin>
-                            <Button onAction="#handleBackToLanding" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Kembali" />
-                            <Button onAction="#handleLogout" style="-fx-background-color: #B84A27; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 18 8 18; -fx-cursor: hand;" text="Keluar" />
+                            <Button fx:id="editProfileBtn" onAction="#handleEnableEdit" style="-fx-background-color: #F2A007; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Edit Profil" />
+                            <Button fx:id="cancelEditBtn" managed="false" onAction="#handleCancelEdit" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 14 8 14; -fx-cursor: hand;" text="Batal" visible="false" />
+                            <Button fx:id="saveProfileBtn" managed="false" onAction="#handleSaveProfile" style="-fx-background-color: #245228; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Simpan" visible="false" />
+                            <Button fx:id="backBtn" onAction="#handleBackToLanding" style="-fx-background-color: #E8EDE8; -fx-text-fill: #1B431E; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Kembali" />
+                            <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-color: #B84A27; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-background-radius: 8; -fx-padding: 8 18 8 18; -fx-cursor: hand;" text="Keluar" />
                         </HBox>
                     </VBox>
                 </HBox>

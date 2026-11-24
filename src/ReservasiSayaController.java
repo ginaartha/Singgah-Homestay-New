@@ -22,7 +22,6 @@ public class ReservasiSayaController {
 
     @FXML
     public void initialize() {
-        // Proteksi: halaman Reservasi Saya hanya bisa diakses jika sudah login
         if (!UserSession.isLoggedIn()) {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -46,9 +45,28 @@ public class ReservasiSayaController {
             profileButton.setManaged(true);
         }
 
-        // Tambahkan pesanan baru dari session ke bagian paling atas
+        if (UserSession.getUserReservations().isEmpty()) {
+            Label emptyLabel = new Label("Belum ada reservasi yang dibuat. Yuk cari kamar homestay impianmu!");
+            emptyLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+            reservationsContainer.getChildren().add(emptyLabel);
+            return;
+        }
+
         for (int i = UserSession.getUserReservations().size() - 1; i >= 0; i--) {
             reservationsContainer.getChildren().add(0, createReservationCard(UserSession.getUserReservations().get(i)));
+        }
+    }
+
+    private Image loadVillaImage(String path) {
+        String target = (path != null && !path.isEmpty()) ? path : "/images/DhyanaVilla.png";
+        try {
+            if (target.startsWith("file:") || target.startsWith("http:") || target.startsWith("https:")) {
+                return new Image(target);
+            }
+            var stream = getClass().getResourceAsStream(target);
+            return stream != null ? new Image(stream) : null;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -57,12 +75,11 @@ public class ReservasiSayaController {
         card.setStyle("-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 14, 0.1, 0, 4);");
         card.setPadding(new Insets(20.0, 28.0, 24.0, 28.0));
 
-        // Header
         HBox header = new HBox();
         header.setAlignment(Pos.CENTER_LEFT);
 
         HBox orderIdBox = new HBox(4.0);
-        Label prefix = new Label("No. pesanan");
+        Label prefix = new Label("No. pesanan ");
         prefix.setStyle("-fx-text-fill: #666666; -fx-font-size: 12px;");
         Label code = new Label(rec.orderCode);
         code.setStyle("-fx-text-fill: #222222; -fx-font-size: 12px; -fx-font-weight: bold;");
@@ -76,7 +93,6 @@ public class ReservasiSayaController {
 
         header.getChildren().addAll(orderIdBox, headerSpacer, statusBadge);
 
-        // Body
         HBox body = new HBox(22.0);
         body.setAlignment(Pos.CENTER_LEFT);
 
@@ -84,15 +100,15 @@ public class ReservasiSayaController {
         imgBox.setMinSize(195.0, 135.0);
         imgBox.setMaxSize(195.0, 135.0);
         imgBox.setStyle("-fx-background-color: #4A6F4D; -fx-background-radius: 12;");
-        ImageView imgView = new ImageView();
-        imgView.setFitWidth(195.0);
-        imgView.setFitHeight(135.0);
-        imgView.setPreserveRatio(false);
-        try {
-            imgView.setImage(new Image(getClass().getResourceAsStream(rec.imagePath)));
-        } catch (Exception ignored) {
+
+        Image loaded = loadVillaImage(rec.imagePath);
+        if (loaded != null) {
+            ImageView imgView = new ImageView(loaded);
+            imgView.setFitWidth(195.0);
+            imgView.setFitHeight(135.0);
+            imgView.setPreserveRatio(false);
+            imgBox.getChildren().add(imgView);
         }
-        imgBox.getChildren().add(imgView);
 
         VBox details = new VBox(6.0);
         HBox.setHgrow(details, Priority.ALWAYS);

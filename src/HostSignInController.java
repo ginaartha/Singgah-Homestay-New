@@ -6,25 +6,29 @@ import javafx.scene.control.TextField;
 
 public class HostSignInController {
 
-    @FXML private TextField loginIdentifierField;
-    @FXML private PasswordField loginPasswordField;
+    @FXML private TextField identifierField;
+    @FXML private PasswordField passwordField;
 
     @FXML
-    private void handleHostSignInSubmit() {
-        String identifier = loginIdentifierField.getText().trim();
-        String password = loginPasswordField.getText();
+    private void handleHostLoginSubmit() {
+        String id = identifierField.getText().trim();
+        String pass = passwordField.getText();
 
-        if (identifier.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Input Kosong", "Masukkan username/email dan password host.");
+        if (id.isEmpty() || pass.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Data Belum Lengkap", "Harap isi username/email dan password host.");
             return;
         }
 
-        if (UserSession.authenticateWithRole(identifier, password, "HOST")) {
-            showAlert(Alert.AlertType.INFORMATION, "Login Host Berhasil", "Selamat datang kembali, Host " + UserSession.getFullName() + "!");
+        if (UserSession.authenticateWithRole(id, pass, "HOST")) {
             navigate("HostDashboard");
         } else {
-            showAlert(Alert.AlertType.ERROR, "Gagal Masuk", "Akun Host tidak ditemukan atau password salah.");
+            showAlert(Alert.AlertType.ERROR, "Login Gagal", "Akun Host tidak ditemukan atau password salah.");
         }
+    }
+
+    @FXML
+    private void handleHostSignInSubmit() {
+        handleHostLoginSubmit();
     }
 
     @FXML
@@ -38,27 +42,21 @@ public class HostSignInController {
     }
 
     @FXML
+    private void handleLogoClick() {
+        navigate("LandingPage");
+    }
+
+    @FXML
     private void handleBackToLanding() {
         navigate("LandingPage");
     }
 
-    // Kalau gagal membuka halaman, penyebabnya muncul di jendela dan di terminal
     private void navigate(String fxml) {
         try {
             App.setRoot(fxml);
         } catch (IOException e) {
             e.printStackTrace();
-
-            String detail = String.valueOf(e.getMessage());
-            if (e.getCause() != null) {
-                detail += "\n\nPenyebab: " + e.getCause();
-            }
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Gagal membuka halaman");
-            alert.setHeaderText(fxml);
-            alert.setContentText(detail);
-            alert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Gagal Membuka Halaman", fxml + ": " + e.getMessage());
         }
     }
 

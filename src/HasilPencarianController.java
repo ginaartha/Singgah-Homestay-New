@@ -88,6 +88,19 @@ public class HasilPencarianController {
         return 0;
     }
 
+    private Image loadVillaImage(String path) {
+        String target = (path != null && !path.isEmpty()) ? path : "/images/DhyanaVilla.png";
+        try {
+            if (target.startsWith("file:") || target.startsWith("http:") || target.startsWith("https:")) {
+                return new Image(target);
+            }
+            var stream = getClass().getResourceAsStream(target);
+            return stream != null ? new Image(stream) : null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private VBox createVillaCard(UserSession.VillaData villa) {
         VBox card = new VBox();
         card.setPrefWidth(300.0);
@@ -98,16 +111,15 @@ public class HasilPencarianController {
         imageWrapper.setPrefHeight(170.0);
         imageWrapper.setStyle("-fx-background-color: #4A6F4D; -fx-background-radius: 16 16 0 0;");
 
-        ImageView imageView = new ImageView();
-        imageView.setFitHeight(170.0);
-        imageView.setFitWidth(300.0);
-        imageView.setPickOnBounds(true);
-        imageView.setPreserveRatio(false);
-        try {
-            imageView.setImage(new Image(getClass().getResourceAsStream(villa.imagePath)));
-        } catch (Exception ignored) {
+        Image loaded = loadVillaImage(villa.imagePath);
+        if (loaded != null) {
+            ImageView imageView = new ImageView(loaded);
+            imageView.setFitHeight(170.0);
+            imageView.setFitWidth(300.0);
+            imageView.setPickOnBounds(true);
+            imageView.setPreserveRatio(false);
+            imageWrapper.getChildren().add(imageView);
         }
-        imageWrapper.getChildren().add(imageView);
 
         VBox body = new VBox(6.0);
         body.setPadding(new Insets(14.0, 18.0, 20.0, 18.0));

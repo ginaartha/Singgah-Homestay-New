@@ -51,8 +51,8 @@ public class HostDashboardController {
     @FXML private FlowPane bookedRoomsSummaryPane;
     @FXML private VBox reservationsContainer;
 
-    private int editingVillaIndex = -1; // -1 = mode tambah baru, >= 0 = mode edit kamar
-    private String selectedImagePath = ""; // kosong = polosan, terisi = path/URI foto
+    private int editingVillaIndex = -1;
+    private String selectedImagePath = "";
 
     @FXML
     public void initialize() {
@@ -68,7 +68,10 @@ public class HostDashboardController {
         }
 
         String hostName = UserSession.getFullName() != null ? UserSession.getFullName() : UserSession.getUsername();
-        welcomeHostLabel.setText("Halo Host " + hostName + " — Tambah listing properti, edit kamar, dan pantau progres reservasi tamu.");
+        String rekInfo = UserSession.hasHostBankDetails()
+            ? " | Rekening: " + UserSession.getHostBankName() + " (" + UserSession.getHostBankAccount() + ")"
+            : " | Rekening belum diatur";
+        welcomeHostLabel.setText("Halo Host " + hostName + rekInfo);
 
         regencyComboBox.setItems(FXCollections.observableArrayList(
             "Badung", "Bangli", "Buleleng", "Denpasar",
@@ -123,6 +126,14 @@ public class HostDashboardController {
 
     @FXML
     private void handleOpenAddForm() {
+        // Host hanya dapat menambahkan kamar baru jika sudah memiliki rekening bank di profil
+        if (!UserSession.hasHostBankDetails()) {
+            showAlert(Alert.AlertType.WARNING, "Rekening Bank Wajib Diisi",
+                "Anda harus menyimpan Nama Bank dan Nomor Rekening di halaman Profil terlebih dahulu sebelum dapat menambahkan listing kamar baru.");
+            handleProfileClick();
+            return;
+        }
+
         editingVillaIndex = -1;
         formTitleLabel.setText("Tambah Listing Homestay Baru");
         saveVillaBtn.setText("Simpan Listing");
@@ -184,6 +195,13 @@ public class HostDashboardController {
 
     @FXML
     private void handleSaveVilla() {
+        if (editingVillaIndex < 0 && !UserSession.hasHostBankDetails()) {
+            showAlert(Alert.AlertType.WARNING, "Rekening Bank Wajib Diisi",
+                "Harap simpan Nama Bank dan Nomor Rekening di Profil Host sebelum menambah listing baru.");
+            handleProfileClick();
+            return;
+        }
+
         String name = villaNameField.getText().trim();
         String regency = regencyComboBox.getValue();
         String guestsStr = maxGuestsField.getText().trim();
